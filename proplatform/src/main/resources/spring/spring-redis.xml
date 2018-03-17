@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <!--导入redis属性文件-->
+    <context:property-placeholder location="classpath:properties/redis.properties"/>
+
+    <!-- Jedis连接池基础配置 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <property name="maxTotal" value="${redis.maxActive}" />
+        <property name="maxWaitMillis" value="${redis.maxWait}" />
+        <property name="testOnBorrow" value="${redis.testOnBorrow}" />
+    </bean>
+
+    <!--Jedis连接池配置-->
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig" />
+        <constructor-arg name="host" value="${redis.host}" />
+        <constructor-arg name="port" value="${redis.port}" type="int" />
+        <constructor-arg name="timeout" value="${redis.timeout}" type="int" />
+        <constructor-arg name="password" value="#{'${redis.password}'!=''?'${redis.password}':null}" />
+        <!--<constructor-arg name="database" value="${redis.db.index}" type="int" />-->
+    </bean>
+
+    <!--baseRedisManager配置-->
+    <bean name="BaseRedisManager" class="com.skyworth.utils.redis.BaseRedisManager">
+        <property name="jedisPool" ref="jedisPool"/>
+    </bean>
+
+    <!--redisCacheDao配置-->
+    <bean name="redisCacheDao" class="com.skyworth.utils.redis.RedisCacheDao"/>
+
+    <!--配置redisCacheService，让shiro使用redis的缓存-->
+    <bean id="redisCacheService" class="com.skyworth.utils.redis.RedisCacheService"/>
+
+
+    <!-- redisSesionDAO配置 -->
+    <bean id="redisSessionDAO" class="com.skyworth.utils.redis.RedisSessionDAO">
+        <!--<property name="redisManager" ref="redisCacheManager"></property>-->
+        <!--<property name="expire" value="100000 "></property>-->
+    </bean>
+</beans>

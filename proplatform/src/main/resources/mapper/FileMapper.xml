@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skyworth.mapper.FileMapper">
+
+    <insert id="save">
+        INSERT INTO
+        file(stage_id, user_id, company_id, file_name, file_size, file_uploader,file_modifydate,file_url)
+        VALUES(#{stageId},#{userId},#{companyId},#{fileName},#{fileSize},#{fileUploader},#{fileModifydate},#{fileUrl})
+    </insert>
+
+    <update id="updateByUser">
+        UPDATE file
+        <set>
+            <if test="stageId != null">
+                stage_id = #{stageId, jdbcType=INTEGER},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId,jdbcType=INTEGER},
+            </if>
+            <if test="fileName != null">
+                file_name = #{fileName, jdbcType=VARCHAR},
+            </if>
+            <if test="fileSize != null">
+                file_size = #{fileSize},
+            </if>
+            <if test="fileUploader != null">
+                file_Uploader = #{fileUploader, jdbcType=VARCHAR},
+            </if>
+            <if test="fileModifydate != null">
+                file_modifydate = #{fileModifydate},
+            </if>
+            <if test="fileUrl != null">
+                file_url = #{fileUrl, jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE user_id = #{userId}
+    </update>
+
+    <update id="updateByCompany">
+        UPDATE file
+        <set>
+            <if test="stageId != null">
+                stage_id = #{stageId, jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="fileName != null">
+                file_name = #{fileName, jdbcType=VARCHAR},
+            </if>
+            <if test="fileSize != null">
+                file_size = #{fileSize},
+            </if>
+            <if test="fileUploader != null">
+                file_Uploader = #{fileUploader, jdbcType=VARCHAR},
+            </if>
+            <if test="fileModifydate != null">
+                file_modifydate = #{fileModifydate},
+            </if>
+            <if test="fileUrl != null">
+                file_url = #{fileUrl, jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE company_id = #{companyId}
+    </update>
+
+    <update id="updateByStage">
+        UPDATE file
+        <set>
+            <if test="companyId != null">
+                company_id = #{companyId, jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="fileName != null">
+                file_name = #{fileName, jdbcType=VARCHAR},
+            </if>
+            <if test="fileSize != null">
+                file_size = #{fileSize},
+            </if>
+            <if test="fileUploader != null">
+                file_Uploader = #{fileUploader, jdbcType=VARCHAR},
+            </if>
+            <if test="fileModifydate != null">
+                file_modifydate = #{fileModifydate},
+            </if>
+            <if test="fileUrl != null">
+                file_url = #{fileUrl, jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE stage_id = #{stageId}
+    </update>
+    <update id="update">
+        UPDATE file
+        <set>
+            <if test="companyId != null">
+                company_id = #{companyId, jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="stageId != null">
+                stage_id = #{stageId,jdbcType=INTEGER},
+            </if>
+            <if test="fileName != null">
+                file_name = #{fileName, jdbcType=VARCHAR},
+            </if>
+            <if test="fileSize != null">
+                file_size = #{fileSize},
+            </if>
+            <if test="fileUploader != null">
+                file_Uploader = #{fileUploader, jdbcType=VARCHAR},
+            </if>
+            <if test="fileModifydate != null">
+                file_modifydate = #{fileModifydate},
+            </if>
+            <if test="fileUrl != null">
+                file_url = #{fileUrl, jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteByUser">
+        DELETE FROM file
+        WHERE user_id = #{userId}
+    </delete>
+
+    <delete id="deleteByCompany">
+        DELETE FROM file
+        WHERE company_id = #{companyId}
+    </delete>
+    <delete id="delete">
+        DELETE FROM file
+        WHERE id = #{id}
+    </delete>
+    <delete id="deleteByBatch">
+        DELETE FROM file
+        WHERE id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="findFileByStageId" resultType="com.skyworth.model.File">
+        SELECT *
+        FROM file
+        WHERE stage_id = #{stageId}
+    </select>
+    <select id="findFileByUserId" resultType="com.skyworth.model.File">
+        SELECT *
+        FROM file
+        WHERE user_id = #{userId}
+    </select>
+    <select id="findFileByCompanyId" resultType="com.skyworth.model.File">
+        SELECT *
+        FROM file
+        WHERE company_id = #{companyId}
+    </select>
+    <select id="findById" resultType="com.skyworth.model.File">
+        SELECT *
+        FROM file
+        WHERE id = #{id}
+    </select>
+</mapper>
