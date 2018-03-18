@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skyworth.mapper.UserInfoMapper">
+
+    <insert id="save">
+        INSERT INTO user_info (user_id,user_url, user_realname, user_sex, user_address, user_school, user_major, user_mailbox, user_profession)
+        VALUES (#{userId},#{userUrl}, #{userRealname}, #{userSex}, #{userAddress}, #{userSchool}, #{userMajor}, #{userMailbox}, #{userProfession})
+    </insert>
+    <update id="update">
+        update user_info
+        <set>
+            <if test="userUrl != null">
+                user_url = #{userUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="userRealname != null">
+                user_realname = #{userRealname,jdbcType=VARCHAR},
+            </if>
+            <if test="userSex != null">
+                user_sex = #{userSex,jdbcType=VARCHAR},
+            </if>
+            <if test="userAddress != null">
+                user_address = #{userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="userSchool != null">
+                user_school = #{userSchool,jdbcType=VARCHAR},
+            </if>
+            <if test="userMajor != null">
+                user_major = #{userMajor,jdbcType=VARCHAR},
+            </if>
+            <if test="userMailbox != null">
+                user_mailbox = #{userMailbox,jdbcType=VARCHAR},
+            </if>
+            <if test="userProfession != null">
+                user_profession = #{userProfession,jdbcType=VARCHAR},
+            </if>
+            <if test="modificationTime != null">
+                modification_time = #{modificationTime,jdbcType=TIMESTAMP}
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    <delete id="delete">
+        DELETE FROM user_info
+        WHERE user_id = #{userId}
+    </delete>
+    <select id="findUserInfo" resultType="com.skyworth.model.UserInfo">
+        select *
+        from user_info
+        where user_id = #{userId}
+    </select>
+</mapper>

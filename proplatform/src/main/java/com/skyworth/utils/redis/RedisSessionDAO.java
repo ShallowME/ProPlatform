@@ -13,7 +13,9 @@ import java.util.Collection;
 public class RedisSessionDAO extends AbstractSessionDAO {
     @Override
     protected Serializable doCreate(Session session) {
-        return null;
+        Serializable sessionId = this.generateSessionId(session);
+        this.assignSessionId(session, sessionId);
+        return sessionId;
     }
 
     @Override

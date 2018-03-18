@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skyworth.mapper.MessageMapper">
+    
+    
+    <insert id="save">
+        INSERT INTO message (user_id, company_id, mes_content, mes_state)
+        VALUES (#{userId},#{companyId},#{mesContent},#{mesState})
+    </insert>
+
+    <delete id="deleteByUserId">
+        DELETE FROM message
+        WHERE user_id = #{userId}
+    </delete>
+
+    <delete id="deleteByCompanyId">
+        DELETE FROM message
+        WHERE company_id = #{companyId}
+    </delete>
+    <delete id="delete">
+        DELETE FROM message
+        WHERE id = #{id}
+    </delete>
+    <delete id="deleteByBatch">
+        DELETE FROM message
+        WHERE id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="findByUserId" resultMap="messageMap">
+        SELECT * FROM message
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="findByCompanyId" resultMap="messageMap">
+        SELECT * FROM message
+        WHERE company_id = #{companyId}
+    </select>
+    <select id="findById" resultType="com.skyworth.model.Message">
+        SELECT * FROM message
+        WHERE id = #{id}
+    </select>
+    <resultMap id="messageMap" type="com.skyworth.model.Message">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="company_id" property="companyId"/>
+        <result column="mes_content" property="mesContent"/>
+        <result column="mes_state" property="mesContent"/>
+        <result column="modification_time" property="modificationTime"/>
+    </resultMap>
+
+</mapper>

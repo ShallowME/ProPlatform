@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skyworth.mapper.RolePermissionMapper">
+
+    <insert id="save">
+        INSERT INTO role_permission ( role_id, permission_id)
+        VALUES (#{roleId},#{permissionId})
+    </insert>
+    <update id="update">
+        UPDATE role_permission
+        SET permission_id = #{newPerId}
+        WHERE role_id = #{roleId} AND permission_id = #{perId}
+    </update>
+    <select id="findRolePermissionByRoleId" resultMap="RolePerMap">
+        SELECT *
+        FROM role_permission
+        WHERE role_id = #{roleId}
+    </select>
+    <select id="findRolePermissionByPermissionId" resultMap="RolePerMap">
+        SELECT *
+        FROM role_permission
+        WHERE permission_id = #{permissionId}
+    </select>
+
+    <resultMap id="RolePerMap" type="com.skyworth.model.RolePermission">
+        <result column="role_id" property="roleId"/>
+        <result column="permission_id" property="permissionId"/>
+    </resultMap>
+
+</mapper>
