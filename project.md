@@ -70,7 +70,8 @@ grammar_cjkRuby: true
 * response
 ``` json
 [{
-   "isSuccessful":Boolean
+   "isSuccessful":Boolean,
+   "errorMessage"：String
 },
 ...] 
 ```
