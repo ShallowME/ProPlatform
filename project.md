@@ -72,8 +72,7 @@ grammar_cjkRuby: true
 [{
    "isSuccessful":Boolean,
    "errorMessage"：String,
-   "userName":String,
-   "phoneNum":String
+   "userName":String
 },
 ...] 
 ```
