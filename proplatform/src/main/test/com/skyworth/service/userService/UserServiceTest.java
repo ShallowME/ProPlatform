@@ -67,6 +67,10 @@ public class UserServiceTest {
         userInfo.setUserRealname("wwy");
         userInfo.setUserSchool("SCUT");
         userInfo.setUserSex("male");
+        userInfo.setUserProvince("广东");
+        userInfo.setUserCity("广州");
+        userInfo.setUserMajor("自动化");
+        userInfo.setUserMailbox("202020@163.com");
         service.setInfo(userInfo);
     }
 

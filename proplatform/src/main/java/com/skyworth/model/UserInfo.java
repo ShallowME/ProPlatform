@@ -16,25 +16,25 @@ public class UserInfo {
     private String userUrl;
     private String userRealname;
     private String userSex;
-    private String userAddress;
+    private String userProvince;
+    private String userCity;
     private String userSchool;
     private String userMajor;
     private String userMailbox;
-    private String userProfession;
     private Date modificationTime;
 
     public UserInfo() {}
 
-    public UserInfo(Integer userId, String userUrl, String userRealname, String userSex, String userAddress, String userSchool, String userMajor, String userMailbox, String userProfession, Date userModificationTime) {
+    public UserInfo(Integer userId, String userUrl, String userRealname, String userSex, String userProvince, String userCity, String userSchool, String userMajor, String userMailbox, Date modificationTime) {
         this.userId = userId;
         this.userUrl = userUrl;
         this.userRealname = userRealname;
         this.userSex = userSex;
-        this.userAddress = userAddress;
+        this.userProvince = userProvince;
+        this.userCity = userCity;
         this.userSchool = userSchool;
         this.userMajor = userMajor;
         this.userMailbox = userMailbox;
-        this.userProfession = userProfession;
-        this.modificationTime = userModificationTime;
+        this.modificationTime = modificationTime;
     }
 }
