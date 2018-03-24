@@ -22,5 +22,15 @@ public interface MessageMapper {
 
     List<Message> findByUserId(@Param("userId") int userId);
 
+    List<Message> findOfflineMessagesByUserId(@Param("userId") int userId);
+
     List<Message> findByCompanyId(@Param("companyId") int companyId);
+
+    List<Message> findOfflineMessagesByCompanyId(@Param("companyId") int companyId);
+
+    void modifyStateByBatch(@Param("list") List<Integer> ids, @Param("changeCode") int changeCode);
+
+    List<Message> findMessageByUserIdAndMesState(@Param("userId") int userId, @Param("mesState") int mesState);
+
+    List<Message> findMessageByCompanyIdAndMesState(@Param("companyId") int companyId, @Param("mesState") int mesState);
 }

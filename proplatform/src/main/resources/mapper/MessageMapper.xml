@@ -7,6 +7,14 @@
         INSERT INTO message (user_id, company_id, mes_content, mes_state)
         VALUES (#{userId},#{companyId},#{mesContent},#{mesState})
     </insert>
+    <update id="modifyStateByBatch">
+        UPDATE message
+        set mes_state = #{changeCode}
+        WHERE id in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
 
     <delete id="deleteByUserId">
         DELETE FROM message
@@ -42,12 +50,28 @@
         SELECT * FROM message
         WHERE id = #{id}
     </select>
+    <select id="findOfflineMessagesByUserId" resultMap="messageMap">
+        SELECT * FROM message
+        WHERE user_id = #{userId} AND mes_state = 0
+    </select>
+    <select id="findOfflineMessagesByCompanyId" resultMap="messageMap">
+        SELECT * FROM message
+        WHERE company_id = #{companyId} AND mes_state = 0
+    </select>
+    <select id="findMessageByUserIdAndMesState" resultMap="messageMap">
+        SELECT * FROM message
+        WHERE user_id = #{userId} AND mes_state = #{mesState}
+    </select>
+    <select id="findMessageByCompanyIdAndMesState" resultMap="messageMap">
+        SELECT * FROM message
+        WHERE company_id = #{companyId} AND mes_state = #{mesState}
+    </select>
     <resultMap id="messageMap" type="com.skyworth.model.Message">
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="company_id" property="companyId"/>
         <result column="mes_content" property="mesContent"/>
-        <result column="mes_state" property="mesContent"/>
+        <result column="mes_state" property="mesState"/>
         <result column="modification_time" property="modificationTime"/>
     </resultMap>
 

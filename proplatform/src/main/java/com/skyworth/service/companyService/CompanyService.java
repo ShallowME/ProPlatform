@@ -92,9 +92,15 @@ public interface CompanyService {
     boolean removeMessageByBatch(List<Integer> list);
 
     List<Message> getMessageByCompany(int companyId);
+
+    List<Message> getOfflineMessages(int companyId);
     
     List<Message> getMessageByUser(int userId);
 
     Message getMessage(int id);
+
+    List<Message> getMessageByMesState(int companyId, int mesState);
+
+    boolean modifyMessageState(List<Integer> ids, Integer changeCode);
 
 }

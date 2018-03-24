@@ -282,8 +282,8 @@ public class UserServiceTest {
     public void saveMessage() {
         Message message = new Message();
         message.setUserId(1);
-        message.setMesContent("content2");
-        message.setMesState(200);
+        message.setMesContent("content3");
+        message.setMesState(1);
         service.saveMessage(message);
     }
 

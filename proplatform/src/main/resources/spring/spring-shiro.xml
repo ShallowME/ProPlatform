@@ -63,6 +63,7 @@
 
         <property name="filterChainDefinitions">
             <value>
+                /** = anon
                 /registerForm = anon
                 /loginForm = anon
                 /authenticate = authc

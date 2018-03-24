@@ -317,10 +317,10 @@ public class CompanyServiceTest {
     @Test
     public void saveMessage() {
         Message message = new Message();
-        message.setCompanyId(null);
-        message.setUserId(1);
-        message.setMesContent("content");
-        message.setMesState(100);
+        message.setCompanyId(1);
+        message.setUserId(null);
+        message.setMesContent("content2");
+        message.setMesState(1);
         service.saveMessage(message);
     }
 
