@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skyworth.mapper.StageMapper">
+
+    <insert id="save">
+        INSERT INTO
+        stage(pro_id, stage_num, stage_starttime, stage_endtime, stage_settletime, stage_speed)
+        VALUES(#{proId},#{stageNum},#{stageStarttime},#{stageEndtime},#{stageSettletime},#{stageSpeed})
+    </insert>
+    <update id="update">
+        UPDATE stage
+        <set>
+            <if test="stageNum != null">
+                stage_num = #{stageNum, jdbcType=INTEGER},
+            </if>
+            <if test="stageStarttime != null">
+                stage_starttime = #{stageStarttime},
+            </if>
+            <if test="stageEndtime != null">
+                stage_endtime = #{stageEndtime},
+            </if>
+            <if test="stageSettletime != null">
+                stage_settletime = #{stageSettletime},
+            </if>
+            <if test="stageSpeed != null">
+                stage_speed = #{stageSpeed}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <delete id="delete">
+        DELETE FROM stage
+        WHERE id = #{id}
+    </delete>
+
+    <select id="findStageByProId" resultMap="stageMap">
+        SELECT *
+        FROM stage
+        WHERE pro_id = #{proId}
+    </select>
+    <select id="findStageById" resultType="com.skyworth.model.Stage">
+        SELECT * FROM stage
+        WHERE id = #{id}
+    </select>
+    <resultMap id="stageMap" type="com.skyworth.model.Stage">
+        <id column="id" property="id"/>
+        <result column="pro_id" property="proId"/>
+        <result column="stage_num" property="stageNum"/>
+        <result column="stage_starttime" property="stageStarttime"/>
+        <result column="stage_endtime" property="stageEndtime"/>
+        <result column="stage_settletime" property="stageSettletime"/>
+        <result column="stage_speed" property="stageSpeed"/>
+        <result column="modification_time" property="modificationTime"/>
+    </resultMap>
+
+</mapper>

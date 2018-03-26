@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <!-- 日志级别 -->
+    <property name="log.root.level" value="DEBUG" />
+    <!-- 其他日志级别 -->
+    <property name="log.other.level" value="DEBUG" />
+    <!--日志路径-->
+    <property name="log.base" value="logs" />
+    <!-- 模块名称 -->
+    <property name="log.moduleName" value="proplatform" />
+    <!-- 日志文件大小 -->
+    <property name="log.max.size" value="100MB" />
+
+
+    <!--控制台输出 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread]%logger{56}.%method:%L -%msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志文件输出 -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>logs/proplatform.log</File><!-- 设置日志不超过${log.max.size}时的保存路径 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>logs/archive/proplatform_all_%d{yyyy-MM-dd}.%i.log.zip
+            </FileNamePattern>
+            <!-- 当天的日志大小 超过${log.max.size}时,压缩日志并保存 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${log.max.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <!-- 日志输出的文件的格式  -->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread]%logger{56}.%method:%L -%msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!--指定全局Appender-->
+    <logger name="com.skyworth" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <!-- 配置将级别为“DEBUG”及大于“DEBUG”的日志信息交给Console处理 -->
+    <root level="DEBUG">
+        <appender-ref ref="stdout" />
+    </root>
+
+</configuration>

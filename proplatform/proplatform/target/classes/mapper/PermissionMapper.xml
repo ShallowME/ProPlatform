@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skyworth.mapper.PermissionMapper">
+
+    <insert id="save">
+        INSERT INTO permission (per_name, per_description) VALUES (#{perName},#{perDescription})
+    </insert>
+    <update id="update">
+        UPDATE permission
+        SET per_description = #{perDescription}
+        WHERE per_name = #{perName}
+    </update>
+    <select id="findPermission" resultType="com.skyworth.model.Permission">
+        SELECT *
+        FROM permission
+        WHERE per_name = #{perName};
+    </select>
+
+</mapper>
