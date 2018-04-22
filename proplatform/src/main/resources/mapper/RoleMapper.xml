@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.skyworth.mapper.RoleMapper">
+    
+    <resultMap id="rolePermissionResultMap" type="com.skyworth.model.Role">
+        <id column="id" property="id"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_description" property="roleDescription"/>
+    </resultMap>
+
+    <resultMap id="permissionSet" type="com.skyworth.model.Permission">
+        <id column="id" property="id"/>
+        <result column="per_name" property="perName"/>
+        <result column="per_description" property="perDescription"/>
+    </resultMap>
 
     <insert id="save">
         INSERT INTO role ( role_name, role_description)
@@ -16,5 +28,17 @@
         WHERE role_name = #{roleName}
     </select>
 
+    <select id="getAllPermissions" resultMap="permissionList">
+        SELECT DISTINCT
+            permission.id,
+            permission.per_name,
+            permission.per_description
+        FROM role r
+        INNER JOIN role_permission rap
+        ON r.id = rap.role_id
+        INNER JOIN permission p
+        ON rap.permission_id = p.id
+        WHERE r.id = #{roleId}
+    </select>
 
 </mapper>

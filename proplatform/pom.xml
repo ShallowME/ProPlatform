@@ -13,23 +13,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <!-- 以下配置日志文件的一些变量 -->
-            <properties>
-                <log.moduleName>proplatform</log.moduleName>
-                <log.base>logs</log.base>
-                <log.other.level>DEBUG</log.other.level>
-                <log.root.level>DEBUG</log.root.level>
-                <log.stdout.ref><![CDATA[<appender-ref ref="stdout" />]]></log.stdout.ref>
-            </properties>
-        </profile>
-    </profiles>
-
     <!--Spring-->
     <dependencies>
         <dependency>
@@ -216,6 +199,13 @@
                     <artifactId>slf4j-api</artifactId>
                     <groupId>org.slf4j</groupId>
                 </exclusion>
+<<<<<<< HEAD
+=======
+                <exclusion>
+                    <artifactId>commons-beanutils</artifactId>
+                    <groupId>commons-beanutils</groupId>
+                </exclusion>
+>>>>>>> a38f1759ed9f71e566b54ac0915b905beba70c31
             </exclusions>
         </dependency>
 
@@ -244,13 +234,45 @@
             <artifactId>spring-test</artifactId>
             <version>4.3.13.RELEASE</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--redis缓存-->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
+<<<<<<< HEAD
             <version>1.8.9.RELEASE</version>
+=======
+            <version>2.0.4.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-aop</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-tx</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+>>>>>>> a38f1759ed9f71e566b54ac0915b905beba70c31
         </dependency>
 
         <dependency>
@@ -272,6 +294,7 @@
             <version>1.6.0</version>
         </dependency>
 
+<<<<<<< HEAD
         <!--json和分页-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -296,6 +319,14 @@
             <version>8.5.20</version>
             <scope>provided</scope>
         </dependency>
+=======
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+
+>>>>>>> a38f1759ed9f71e566b54ac0915b905beba70c31
 
     </dependencies>
 

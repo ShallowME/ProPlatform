@@ -56,7 +56,7 @@ public class ProjectMapperTest {
         project.setProType("cs");
         project.setProCycle(40);
         project.setProMoney(2000.0);
-        project.setProPubtime(new Date().getTime());
+        project.setProPubTime(new Date().getTime());
         project.setProState(2);
         mapper.update(project);
     }

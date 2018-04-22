@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Shallow on 2018/3/6.
@@ -48,4 +49,11 @@ public class User {
         this.userPassword = userPassword;
     }
 
+    public User(User user) {
+        this.id = user.getId();
+        this.userName = user.getUserName();
+        this.userPassword = user.getUserPassword();
+        this.userPhoneNum = user.getUserPhoneNum();
+        this.userSalt = user.getUserSalt();
+    }
 }

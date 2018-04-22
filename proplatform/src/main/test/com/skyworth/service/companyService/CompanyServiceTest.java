@@ -102,7 +102,7 @@ public class CompanyServiceTest {
         project.setProName("project1");
         project.setCompanyId(1);
         project.setCompanyName("创维");
-        project.setProPubtime(new Date().getTime());
+        project.setProPubTime(new Date().getTime());
         project.setProMoney(2000.0);
         project.setProType("software");
         service.saveProject(project);
@@ -113,7 +113,7 @@ public class CompanyServiceTest {
         Project project = new Project();
         project.setId(8);
         project.setProCycle(30);
-        project.setProPubtime(new Date().getTime());
+        project.setProPubTime(new Date().getTime());
         project.setProMoney(2000.0);
         project.setProDescription(".......description...........");
         project.setProRequest("......request......");
@@ -137,8 +137,8 @@ public class CompanyServiceTest {
     public void saveStage() {
         Stage stage = new Stage();
         stage.setProId(1);
-        stage.setStageStarttime(new Date().getTime());
-        stage.setStageEndtime(new Date().getTime());
+        stage.setStageStartTime(new Date().getTime());
+        stage.setStageEndTime(new Date().getTime());
         stage.setStageNum(1);
         service.saveStage(stage);
     }
@@ -147,7 +147,7 @@ public class CompanyServiceTest {
     public void updateStage() {
         Stage stage = new Stage();
         stage.setProId(1);
-        stage.setStageSettletime(new Date().getTime());
+        stage.setStageSettleTime(new Date().getTime());
         stage.setStageSpeed(3);
         service.updateStage(stage);
     }
@@ -223,7 +223,7 @@ public class CompanyServiceTest {
     public void updateFile() {
         File file = new File();
         file.setId(2);
-        file.setFileModifydate(new Date().getTime());
+        file.setFileModifyDate(new Date().getTime());
         file.setFileSize(10.0);
         file.setFileUploader("user2");
         file.setFileUrl("url");

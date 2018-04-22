@@ -1,9 +1,13 @@
 package com.skyworth.mapper;
 
+import com.skyworth.model.Permission;
 import com.skyworth.model.Role;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface RoleMapper {
@@ -13,4 +17,5 @@ public interface RoleMapper {
 
     Role findRole(@Param("roleName") String roleName);
 
+    Set<Permission> getAllPermissions(@Param("roleId") int roleId);
 }

@@ -32,9 +32,9 @@ public class StageMapperTest {
         Stage stage = new Stage();
         stage.setId(1);
         stage.setStageNum(2);
-        stage.setStageStarttime(new Date().getTime());
-        stage.setStageEndtime(new Date().getTime());
-        stage.setStageSettletime(new Date().getTime());
+        stage.setStageStartTime(new Date().getTime());
+        stage.setStageEndTime(new Date().getTime());
+        stage.setStageSettleTime(new Date().getTime());
         stage.setStageSpeed(4);
         mapper.update(stage);
 

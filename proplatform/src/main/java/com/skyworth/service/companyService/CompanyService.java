@@ -3,6 +3,7 @@ package com.skyworth.service.companyService;
 import com.skyworth.model.*;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CompanyService {
     boolean register(Company company);
@@ -99,8 +100,14 @@ public interface CompanyService {
 
     Message getMessage(int id);
 
+<<<<<<< HEAD
     List<Message> getMessageByMesState(int companyId, int mesState);
 
     boolean modifyMessageState(List<Integer> ids, Integer changeCode);
 
+=======
+    Set<Role> getAllRoles(int companyId);
+
+    Set<Permission> getAllPermissions(int roleId);
+>>>>>>> a38f1759ed9f71e566b54ac0915b905beba70c31
 }

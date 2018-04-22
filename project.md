@@ -70,9 +70,7 @@ grammar_cjkRuby: true
 * response
 ``` json
 [{
-   "isSuccessful":Boolean,
-   "errorMessage"：String,
-   "userName":String
+   "isSuccessful":Boolean
 },
 ...] 
 ```
@@ -1312,7 +1310,6 @@ grammar_cjkRuby: true
 	"imgUrl":String,
 	"companyRealName":String,
 	"companyProCount":Number,
-	"companyAddress":Stirng,
 	"companyMajor":String,
 	"companyDescription":String
 },
@@ -1328,7 +1325,6 @@ grammar_cjkRuby: true
 [{
 	"companyId":Number
 	"companyRealName":String,
-	"companyAddress":Stirng,
 	"companyMajor":String,
 	"companyDescription":String	
 },
@@ -1339,7 +1335,6 @@ grammar_cjkRuby: true
 ``` json
 [{
 	"companyRealName":String,
-	"companyAddress":Stirng,
 	"companyMajor":String,
 	"companyDescription":String
 },

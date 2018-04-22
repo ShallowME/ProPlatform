@@ -4,8 +4,8 @@
 
     <insert id="save">
         INSERT INTO
-        resume(user_id, resume_img, resume_realname, resume_sex, resume_address, resume_school, resume_major, resume_mailbox, resume_phonenum, resume_sch_experience, resume_work_experience)
-        VALUES (#{userId},#{resumeImg},#{resumeRealname},#{resumeSex},#{resumeAddress},#{resumeSchool},#{resumeMajor},#{resumeMailbox},#{resumePhonenum},#{resumeSchExperience},#{resumeWorkExperience})
+        resume(user_id, resume_img, resume_realname, resume_sex, resume_birth, resume_education, resume_school, resume_major, resume_mailbox, resume_phonenum, resume_sch_experience, resume_work_experience)
+        VALUES (#{userId},#{resumeImg},#{resumeRealname},#{resumeSex},#{resumeBirth},#{resume_education},#{resumeSchool},#{resumeMajor},#{resumeMailbox},#{resumePhonenum},#{resumeSchExperience},#{resumeWorkExperience})
     </insert>
     <update id="update">
         update resume
@@ -19,8 +19,11 @@
             <if test="resumeSex != null">
                 resume_sex = #{resumeSex,jdbcType=VARCHAR},
             </if>
-            <if test="resumeAddress != null">
-                resume_address = #{resumeAddress,jdbcType=VARCHAR},
+            <if test="resumeBirth != null">
+                resume_birth = #{resumeBirth,jdbcType=VARCHAR},
+            </if>
+            <if test="resumeEducation != null">
+                resume_education = #{resumeEducation,jdbcType=VARCHAR},
             </if>
             <if test="resumeSchool != null">
                 resume_school = #{resumeSchool,jdbcType=VARCHAR},

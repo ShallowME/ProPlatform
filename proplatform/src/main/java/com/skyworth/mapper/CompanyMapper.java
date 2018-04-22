@@ -1,9 +1,12 @@
 package com.skyworth.mapper;
 
 import com.skyworth.model.Company;
+import com.skyworth.model.Role;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
+
+import java.util.Set;
 
 @Repository
 public interface CompanyMapper {
@@ -20,4 +23,7 @@ public interface CompanyMapper {
     Company findByPhoneNumAndPassword(@Param("phoneNum") String phoneNum, @Param("password") String password);
 
     void updatePassword(@Param("companyName") String companyName, @Param("newPassword") String newPassword);
+
+    Set<Role> getAllRoles(@Param("companyId") int companyId);
+
 }

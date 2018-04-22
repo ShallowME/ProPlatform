@@ -6,8 +6,12 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+<<<<<<< HEAD
 
+=======
+>>>>>>> a38f1759ed9f71e566b54ac0915b905beba70c31
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Shallow on 2018/3/6.
@@ -39,8 +43,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private MessageMapper messageMapper;
 
+<<<<<<< HEAD
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
 
+=======
+    @Autowired
+    private RoleMapper roleMapper;
+
+    private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
+>>>>>>> a38f1759ed9f71e566b54ac0915b905beba70c31
     @Override
     public boolean register(User user) {
         if (checkUserExist(user.getUserName())) {
@@ -50,7 +61,7 @@ public class UserServiceImpl implements UserService {
             userMapper.save(user);
         } catch (DuplicateKeyException e) {
 //            e.printStackTrace();
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -91,7 +102,7 @@ public class UserServiceImpl implements UserService {
         try {
             userInfoMapper.save(info);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -102,7 +113,7 @@ public class UserServiceImpl implements UserService {
         try {
             userInfoMapper.update(info);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -118,7 +129,7 @@ public class UserServiceImpl implements UserService {
         try {
             userInfoMapper.delete(infoId);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -129,7 +140,7 @@ public class UserServiceImpl implements UserService {
         try {
             resumeMapper.save(resume);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -140,7 +151,7 @@ public class UserServiceImpl implements UserService {
         try {
             resumeMapper.update(resume);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -156,7 +167,7 @@ public class UserServiceImpl implements UserService {
         try {
             resumeMapper.delete(resumeId);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -167,7 +178,7 @@ public class UserServiceImpl implements UserService {
         try {
             patentMapper.save(patent);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -178,7 +189,7 @@ public class UserServiceImpl implements UserService {
         try {
             patentMapper.update(patent);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -189,7 +200,7 @@ public class UserServiceImpl implements UserService {
         try {
             patentMapper.delete(patentId);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -210,7 +221,7 @@ public class UserServiceImpl implements UserService {
         try {
             subscribeMapper.save(subscribe);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -221,7 +232,7 @@ public class UserServiceImpl implements UserService {
         try {
             subscribeMapper.update(subscribe);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -242,7 +253,7 @@ public class UserServiceImpl implements UserService {
         try {
             subscribeMapper.delete(subId);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -253,7 +264,7 @@ public class UserServiceImpl implements UserService {
         try {
             subscribeMapper.deleteByBatch(list);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -264,7 +275,7 @@ public class UserServiceImpl implements UserService {
         try {
             fileMapper.save(file);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -275,7 +286,7 @@ public class UserServiceImpl implements UserService {
         try {
             fileMapper.update(file);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -296,7 +307,7 @@ public class UserServiceImpl implements UserService {
         try {
             fileMapper.delete(fileId);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -307,7 +318,7 @@ public class UserServiceImpl implements UserService {
         try {
             fileMapper.deleteByBatch(list);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -318,7 +329,7 @@ public class UserServiceImpl implements UserService {
         try {
             applyMapper.save(apply);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -329,7 +340,7 @@ public class UserServiceImpl implements UserService {
         try {
             applyMapper.update(apply);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -350,7 +361,7 @@ public class UserServiceImpl implements UserService {
         try {
             messageMapper.save(message);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -371,7 +382,7 @@ public class UserServiceImpl implements UserService {
         try {
             messageMapper.delete(mesId);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
@@ -382,13 +393,14 @@ public class UserServiceImpl implements UserService {
         try {
             messageMapper.deleteByBatch(list);
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
             return false;
         }
         return true;
     }
 
     @Override
+<<<<<<< HEAD
     public boolean modifyMessageState(List<Integer> list, Integer changCode) {
         if (list.size() == 0 || changCode == null) {
             return false;
@@ -410,6 +422,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Message> getMessageByMesState(int userId, int mesState) {
         return messageMapper.findMessageByUserIdAndMesState(userId, mesState);
+=======
+    public Set<Role> getAllRoles(int userId) {
+        return userMapper.getAllRoles(userId);
+    }
+
+    @Override
+    public Set<Permission> getAllPermissions(int roleId) {
+        return roleMapper.getAllPermissions(roleId);
+>>>>>>> a38f1759ed9f71e566b54ac0915b905beba70c31
     }
 
 }

@@ -43,7 +43,6 @@
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-ehcache:1.2.3" />
           <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.5.0" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.2.3" />
-          <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.8.3" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-web:1.2.3" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-quartz:1.2.3" />
           <element id="library" level="project" name="Maven: org.opensymphony.quartz:quartz:1.6.1" />
@@ -56,6 +55,7 @@
           <element id="library" level="project" name="Maven: io.protostuff:protostuff-api:1.6.0" />
           <element id="library" level="project" name="Maven: io.protostuff:protostuff-runtime:1.6.0" />
           <element id="library" level="project" name="Maven: io.protostuff:protostuff-collectionschema:1.6.0" />
+          <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">

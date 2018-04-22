@@ -27,7 +27,6 @@ public class ResumeMapperTest {
         Resume resume = new Resume();
         resume.setUserId(1);
         resume.setResumeSex("male");
-        resume.setResumeAddress("guangzhou");
         resume.setResumeImg("img");
         resume.setResumeMailbox("1@qq.com");
         resume.setResumeMajor("software engineering");
@@ -35,7 +34,6 @@ public class ResumeMapperTest {
         resume.setResumeSchExperience("none");
         resume.setResumeWorkExperience("none");
         resume.setResumePhonenum("111");
-        resume.setResumeAddress("shenzhen");
         mapper.update(resume);
     }
 

@@ -4,13 +4,13 @@
 
     <insert id="save">
         INSERT INTO project(company_id,company_name, pro_name, pro_money, pro_type, pro_cycle, pro_pubtime, pro_description, pro_request,pro_state)
-        VALUES (#{companyId},#{companyName}, #{proName}, #{proMoney}, #{proType}, #{proCycle}, #{proPubtime}, #{proDescription}, #{proRequest},#{proState})
+        VALUES (#{companyId},#{companyName}, #{proName}, #{proMoney}, #{proType}, #{proCycle}, #{proPubTime}, #{proDescription}, #{proRequest},#{proState})
     </insert>
     <insert id="saveByBatch">
         INSERT INTO project(company_id,company_name, pro_name, pro_money, pro_type, pro_cycle, pro_pubtime, pro_description, pro_request,pro_state)
         VALUES
         <foreach collection="list" item="p" separator=",">
-            (#{p.companyId},#{p.companyName}, #{p.proName}, #{p.proMoney}, #{p.proType}, #{p.proCycle}, #{p.proPubtime}, #{p.proDescription}, #{p.proRequest},#{p.proState})
+            (#{p.companyId},#{p.companyName}, #{p.proName}, #{p.proMoney}, #{p.proType}, #{p.proCycle}, #{p.proPubTime}, #{p.proDescription}, #{p.proRequest},#{p.proState})
         </foreach>
     </insert>
     <update id="update">
@@ -32,7 +32,7 @@
                 pro_cycle = #{proCycle,jdbcType=INTEGER},
             </if>
             <if test="proPubtime != null">
-                pro_pubtime = #{proPubtime,jdbcType=INTEGER},
+                pro_pubtime = #{proPubTime,jdbcType=INTEGER},
             </if>
             <if test="proDescription != null">
                 pro_description = #{proDescription},
@@ -114,7 +114,7 @@
         <result column="pro_money" property="proMoney"/>
         <result column="pro_cycle" property="proCycle"/>
         <result column="pro_type" property="proType"/>
-        <result column="pro_pubtime" property="proPubtime"/>
+        <result column="pro_pubtime" property="proPubTime"/>
         <result column="pro_description" property="proDescription"/>
         <result column="pro_request" property="proRequest"/>
         <result column="pro_state" property="proState"/>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skyworth.mapper.InviteMapper">
+    
+    
+    <insert id="save">
+        INSERT INTO invite (resume_id, company_id, pro_id, invite_state, invite_mark) 
+        VALUES (#{resumeId},#{companyId},#{proId},#{inviteState},#{inviteMark})
+    </insert>
+    <update id="update">
+        UPDATE invite
+        <set>
+            <if test="resumeId != null">
+                resume_id = #{resumeId},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId},
+            </if>
+            <if test="proId != null">
+                pro_id = #{proId},
+            </if>
+            <if test="inviteState != null">
+                invite_state = #{inviteState},
+            </if>
+            <if test="inviteMark != null">
+                invite_mark = #{inviteMark}
+            </if>
+        </set>
+    </update>
+    <delete id="deleteByCompany">
+        DELETE FROM invite
+        WHERE company_id = #{companyId}
+        AND pro_id = #{proId}
+    </delete>
+    <delete id="delete">
+        DELETE FROM invite
+        WHERE id = #{id}
+    </delete>
+    <delete id="deleteByBatch">
+        DELETE FROM invite
+        WHERE id in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="findInvitesByCompanyId" resultMap="inviteMap">
+        SELECT * FROM invite
+        WHERE company_id = #{companyId}
+    </select>
+    <select id="findById" resultType="com.skyworth.model.Invite">
+        SELECT * FROM invite
+        WHERE id = #{id}
+    </select>
+    <select id="findInvitesByResumeId" resultMap="inviteMap">
+        SELECT * FROM invite
+        WHERE resume_id = #{resumeId}
+    </select>
+    <select id="findInvitesByProId" resultMap="inviteMap">
+        SELECT * FROM invite
+        WHERE pro_id = #{proId}
+    </select>
+    <resultMap id="inviteMap" type="com.skyworth.model.Invite">
+        <id column="id" property="id"/>
+        <result column="resume_id" property="resumeId"/>
+        <result column="company_id" property="companyId"/>
+        <result column="pro_id" property="proId"/>
+        <result column="invite_state" property="inviteState"/>
+        <result column="invite_mark" property="inviteMark"/>
+        <result column="modification_time" property="modificationTime"/>
+    </resultMap>
+
+</mapper>

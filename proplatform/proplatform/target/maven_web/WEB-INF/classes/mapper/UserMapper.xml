@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skyworth.mapper.UserMapper">
+
+<insert id="save">
+        INSERT INTO user(user_name,user_phone_num,user_password,user_salt,modification_time)
+        values(#{userName},#{userPhoneNum},#{userPassword},#{userSalt},#{modificationTime})
+    </insert>
+    <update id="updatePassword">
+        UPDATE user
+        SET user_password = #{newPassword}
+        WHERE user_name = #{userName}
+    </update>
+
+    <select id="findByUsernameAndPassword" resultType="com.skyworth.model.User">
+        SELECT *
+        FROM user
+        WHERE user_name =#{userName} AND user_password=#{userPassword}
+    </select>
+
+    <select id="findByUsername" resultType="com.skyworth.model.User">
+        SELECT *
+        FROM user
+        WHERE user_name =#{userName}
+    </select>
+
+    <select id="findByPhoneNum" resultType="com.skyworth.model.User">
+        SELECT *
+        FROM user
+        WHERE user_phone_num = #{phoneNum}
+    </select>
+    <select id="countByName" resultType="java.lang.Integer">
+        SELECT count(id) FROM user
+        WHERE user_name = #{userName};
+    </select>
+    <select id="countByPhoneNum" resultType="java.lang.Integer">
+        SELECT count(id) FROM user
+        WHERE user_phone_num = #{phoneNum};
+    </select>
+    <select id="countUser" resultType="java.lang.Long">
+        SELECT count(id) FROM user
+    </select>
+
+</mapper>
