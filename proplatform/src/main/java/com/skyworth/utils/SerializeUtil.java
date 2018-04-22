@@ -33,11 +33,12 @@ public class SerializeUtil {
         return rv;
     }
 
-    
+    @SuppressWarnings({"unchecked", "varargs"})
 	public static Object deserialize(byte[] in) {
         return deserialize(in, Object.class);
     }
 
+    @SuppressWarnings({"unchecked", "varargs"})
     public static <T> T deserialize(byte[] in, Class<T>...requiredType) {
         Object rv = null;
         ByteArrayInputStream bis = null;

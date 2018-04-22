@@ -90,16 +90,15 @@ public interface UserService {
 
     boolean removeMessageByBatch(List<Integer> list);
 
-<<<<<<< HEAD
     boolean modifyMessageState(List<Integer> list, Integer changCode);
 
     List<Message> getOfflineMessages(int userId);
 
     List<Message> getMessageByMesState(int userId, int mesState);
 
-=======
+
     Set<Role> getAllRoles(int userId);
 
     Set<Permission> getAllPermissions(int roleId);
->>>>>>> a38f1759ed9f71e566b54ac0915b905beba70c31
+
 }

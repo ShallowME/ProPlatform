@@ -63,6 +63,7 @@ public class BaseSessionRepository implements ShiroSessionRepository {
     }
 
     @Override
+    @SuppressWarnings({"unchecked", "varargs"})
     public Session getSession(Serializable sessionId, String prefix) {
         if(sessionId == null){
             throw new  NullPointerException("session id is empty");
@@ -80,6 +81,7 @@ public class BaseSessionRepository implements ShiroSessionRepository {
     }
 
     @Override
+    @SuppressWarnings({"unchecked", "varargs"})
     public Collection<Session> getAllSessions(String prefix) {
         Set<Session> sessions = null;
         Set<byte[]> byteKeys;

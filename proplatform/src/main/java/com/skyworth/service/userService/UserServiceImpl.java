@@ -6,10 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-<<<<<<< HEAD
 
-=======
->>>>>>> a38f1759ed9f71e566b54ac0915b905beba70c31
 import java.util.List;
 import java.util.Set;
 
@@ -43,15 +40,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private MessageMapper messageMapper;
 
-<<<<<<< HEAD
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
 
-=======
     @Autowired
     private RoleMapper roleMapper;
 
     private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
->>>>>>> a38f1759ed9f71e566b54ac0915b905beba70c31
+
     @Override
     public boolean register(User user) {
         if (checkUserExist(user.getUserName())) {
@@ -400,7 +395,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-<<<<<<< HEAD
+
     public boolean modifyMessageState(List<Integer> list, Integer changCode) {
         if (list.size() == 0 || changCode == null) {
             return false;
@@ -422,7 +417,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Message> getMessageByMesState(int userId, int mesState) {
         return messageMapper.findMessageByUserIdAndMesState(userId, mesState);
-=======
+
+    }
+        @Override
     public Set<Role> getAllRoles(int userId) {
         return userMapper.getAllRoles(userId);
     }
@@ -430,7 +427,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Set<Permission> getAllPermissions(int roleId) {
         return roleMapper.getAllPermissions(roleId);
->>>>>>> a38f1759ed9f71e566b54ac0915b905beba70c31
+
     }
 
 }

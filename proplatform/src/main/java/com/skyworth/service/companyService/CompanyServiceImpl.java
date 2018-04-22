@@ -450,7 +450,6 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-<<<<<<< HEAD
     public List<Message> getMessageByMesState(int companyId, int mesState) {
         return messageMapper.findMessageByCompanyIdAndMesState(companyId, mesState);
     }
@@ -467,16 +466,16 @@ public class CompanyServiceImpl implements CompanyService {
             return false;
         }
         return true;
-=======
-    public Set<Role> getAllRoles(int companyId) {
+
+    }
+
+    public Set<Role> getAllRoles ( int companyId){
         return mapper.getAllRoles(companyId);
     }
 
     @Override
-    public Set<Permission> getAllPermissions(int roleId) {
+    public Set<Permission> getAllPermissions ( int roleId){
         return roleMapper.getAllPermissions(roleId);
->>>>>>> a38f1759ed9f71e566b54ac0915b905beba70c31
+
     }
-
-
 }

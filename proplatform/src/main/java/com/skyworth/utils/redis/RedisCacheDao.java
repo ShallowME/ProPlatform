@@ -82,8 +82,10 @@ public class RedisCacheDao<K,V> implements Cache<K,V> {
     }
 
     @Override
+    @SuppressWarnings({"unchecked", "varargs"})
     public V remove(K key) throws CacheException {
         logger.debug("remove key [" + key + "]");
+        byte[] rawValue = null;
 
         if (key == null){
             return null;
@@ -91,13 +93,11 @@ public class RedisCacheDao<K,V> implements Cache<K,V> {
 
         try{
             String cacheKey = keyPrefix + key;
-            byte[] rawValue = redisManager.get(SerializeUtil.serialize(cacheKey));
-            V  previous = SerializeUtil.deserialize(rawValue,valueClass);
-            return previous;
+            rawValue = redisManager.get(SerializeUtil.serialize(cacheKey));
         } catch (Exception e) {
             logger.error("Seriaizer error",e);
         }
-        return null;
+        return SerializeUtil.deserialize(rawValue,valueClass);
     }
 
     @Override
@@ -125,6 +125,7 @@ public class RedisCacheDao<K,V> implements Cache<K,V> {
     }
 
     @Override
+    @SuppressWarnings({"unchecked", "varargs"})
     public Set<K> keys() {
         Set<byte[]> keys = null;
 
@@ -150,6 +151,7 @@ public class RedisCacheDao<K,V> implements Cache<K,V> {
     }
 
     @Override
+    @SuppressWarnings({"unchecked", "varargs"})
     public Collection<V> values() {
         Set<byte[]> keys = null;
 
