@@ -5,7 +5,7 @@
     <insert id="save">
         INSERT INTO
         stage(pro_id, stage_num, stage_starttime, stage_endtime, stage_settletime, stage_speed)
-        VALUES(#{proId},#{stageNum},#{stageStarttime},#{stageEndtime},#{stageSettletime},#{stageSpeed})
+        VALUES(#{proId},#{stageNum},#{stageStartTime},#{stageEndTime},#{stageSettleTime},#{stageSpeed})
     </insert>
     <update id="update">
         UPDATE stage
@@ -14,13 +14,13 @@
                 stage_num = #{stageNum, jdbcType=INTEGER},
             </if>
             <if test="stageStarttime != null">
-                stage_starttime = #{stageStarttime},
+                stage_starttime = #{stageStartTime},
             </if>
             <if test="stageEndtime != null">
-                stage_endtime = #{stageEndtime},
+                stage_endtime = #{stageEndTime},
             </if>
             <if test="stageSettletime != null">
-                stage_settletime = #{stageSettletime},
+                stage_settletime = #{stageSettleTime},
             </if>
             <if test="stageSpeed != null">
                 stage_speed = #{stageSpeed}
@@ -46,9 +46,9 @@
         <id column="id" property="id"/>
         <result column="pro_id" property="proId"/>
         <result column="stage_num" property="stageNum"/>
-        <result column="stage_starttime" property="stageStarttime"/>
-        <result column="stage_endtime" property="stageEndtime"/>
-        <result column="stage_settletime" property="stageSettletime"/>
+        <result column="stage_starttime" property="stageStartTime"/>
+        <result column="stage_endTime" property="stageEndTime"/>
+        <result column="stage_settleTime" property="stageSettleTime"/>
         <result column="stage_speed" property="stageSpeed"/>
         <result column="modification_time" property="modificationTime"/>
     </resultMap>

@@ -1,5 +1,8 @@
 package com.skyworth.utils.redis;
 
+import com.skyworth.utils.ObjectSerializer;
+import com.skyworth.utils.SerializeUtil;
+import com.skyworth.utils.StringSerializer;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.shiro.cache.Cache;
@@ -17,11 +20,8 @@ import java.util.*;
 public class RedisCacheDao<K,V> implements Cache<K,V> {
 
     private final static Logger logger = LoggerFactory.getLogger(RedisCacheDao.class);
-
-    private StringSerializer keySerializer = new StringSerializer();
-    private ObjectSerializer valueSerializer = new ObjectSerializer();
-    private IRedisManager redisManager;
-    private Class<V> valueClass;
+    private IRedisManager redisManager = new BaseRedisManager();
+    private Class<V> valueClass = null;
 
     @Getter
     @Setter
@@ -41,7 +41,7 @@ public class RedisCacheDao<K,V> implements Cache<K,V> {
     @Override
     public V get(K key) throws CacheException {
         logger.debug("get key [" + key + "]");
-
+        byte[] rawValue = new byte[0];
         if (key == null){
             logger.error("Key can not be null");
             return null;
@@ -49,16 +49,15 @@ public class RedisCacheDao<K,V> implements Cache<K,V> {
 
         try{
             String cacheKey = keyPrefix + key;
-            byte[] rawValue = redisManager.get(keySerializer.serialize(cacheKey));
+            rawValue = redisManager.get(SerializeUtil.serialize(cacheKey));
             if(rawValue == null){
                 return null;
             }
-            V value = (V)valueSerializer.deserialize(rawValue,valueClass);
-            return value;
-        } catch (SerialException e) {
+        } catch (Exception e) {
             logger.error("Seriaizer error",e);
         }
-        return null;
+        return (V)SerializeUtil.deserialize(rawValue,valueClass);
+
     }
 
     @Override
@@ -72,11 +71,11 @@ public class RedisCacheDao<K,V> implements Cache<K,V> {
 
         try{
             String cacheKey = keyPrefix + key;
-            redisManager.set(keySerializer.serialize(cacheKey),
-                    value != null ? valueSerializer.serialize(value, valueClass):null,
+            redisManager.set(SerializeUtil.serialize(cacheKey),
+                    value != null ? SerializeUtil.serialize(value):null,
                     expire);
             return value;
-        } catch (SerialException e) {
+        } catch (Exception e) {
             logger.error("Seriaizer error",e);
         }
         return null;
@@ -92,10 +91,10 @@ public class RedisCacheDao<K,V> implements Cache<K,V> {
 
         try{
             String cacheKey = keyPrefix + key;
-            byte[] rawValue = redisManager.get(keySerializer.serialize(cacheKey));
-            V  previous = valueSerializer.deserialize(rawValue,valueClass);
+            byte[] rawValue = redisManager.get(SerializeUtil.serialize(cacheKey));
+            V  previous = SerializeUtil.deserialize(rawValue,valueClass);
             return previous;
-        } catch (SerialException e) {
+        } catch (Exception e) {
             logger.error("Seriaizer error",e);
         }
         return null;
@@ -107,8 +106,8 @@ public class RedisCacheDao<K,V> implements Cache<K,V> {
 
         Set<byte[]> keys = null;
         try {
-            keys = redisManager.keys(keySerializer.serialize(this.keyPrefix));
-        }catch (SerialException e){
+            keys = redisManager.keys(SerializeUtil.serialize(this.keyPrefix));
+        }catch (Exception e){
             logger.error("Serializer error");
         }
         if (keys == null || keys.size() == 0){
@@ -130,8 +129,8 @@ public class RedisCacheDao<K,V> implements Cache<K,V> {
         Set<byte[]> keys = null;
 
         try{
-            keys = redisManager.keys(keySerializer.serialize(this.keyPrefix));
-        } catch (SerialException e) {
+            keys = redisManager.keys(SerializeUtil.serialize(this.keyPrefix));
+        } catch (Exception e) {
             logger.error("Serializer error",e);
         }
 
@@ -142,8 +141,8 @@ public class RedisCacheDao<K,V> implements Cache<K,V> {
         Set<K> convertKeys = null;
         for (byte[] key:keys){
             try {
-                convertKeys.add((K) keySerializer.deserialize(key));
-            } catch (SerialException e) {
+                convertKeys.add((K) SerializeUtil.deserialize(key,String.class));
+            } catch (Exception e) {
                 logger.error("Serializer error",e);
             }
         }
@@ -155,8 +154,8 @@ public class RedisCacheDao<K,V> implements Cache<K,V> {
         Set<byte[]> keys = null;
 
         try{
-            keys = redisManager.keys(keySerializer.serialize(this.keyPrefix));
-        } catch (SerialException e) {
+            keys = redisManager.keys(SerializeUtil.serialize(this.keyPrefix));
+        } catch (Exception e) {
             logger.error("Serializer error",e);
         }
 
@@ -168,8 +167,8 @@ public class RedisCacheDao<K,V> implements Cache<K,V> {
         for (byte[] key:keys){
             V value = null;
             try {
-                value = (valueSerializer.deserialize(redisManager.get(key),valueClass));
-            } catch (SerialException e) {
+                value = (SerializeUtil.deserialize(redisManager.get(key),valueClass));
+            } catch (Exception e) {
                 logger.error("Serializer error",e);
             }
             if (value != null) {

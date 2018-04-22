@@ -109,7 +109,6 @@ public class UserServiceTest {
     public void updateResume() {
         Resume resume = new Resume();
         resume.setUserId(2);
-        resume.setResumeAddress("guangzhou");
         resume.setResumeWorkExperience("none");
         service.updateResume(resume);
     }
@@ -219,7 +218,7 @@ public class UserServiceTest {
     public void updateFile() {
         File file = new File();
         file.setId(5);
-        file.setFileModifydate(new Date().getTime());
+        file.setFileModifyDate(new Date().getTime());
         file.setFileSize(10.0);
         file.setFileUploader("user1");
         file.setFileUrl("url1");

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
     <!-- 日志级别 -->
-    <property name="log.root.level" value="${log.root.level}" />
+    <property name="log.root.level" value="DEBUG" />
     <!-- 其他日志级别 -->
-    <property name="log.other.level" value="${log.other.level}" />
+    <property name="log.other.level" value="DEBUG" />
     <!--日志路径-->
-    <property name="log.base" value="${log.base}" />
+    <property name="log.base" value="logs" />
     <!-- 模块名称 -->
-    <property name="log.moduleName" value="${log.moduleName}" />
+    <property name="log.moduleName" value="proplatform" />
     <!-- 日志文件大小 -->
     <property name="log.max.size" value="100MB" />
 
@@ -21,9 +21,9 @@
 
     <!-- 日志文件输出 -->
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${log.base}/${log.moduleName}.log</File><!-- 设置日志不超过${log.max.size}时的保存路径 -->
+        <File>logs/proplatform.log</File><!-- 设置日志不超过${log.max.size}时的保存路径 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${log.base}/archive/${log.moduleName}_all_%d{yyyy-MM-dd}.%i.log.zip
+            <FileNamePattern>logs/archive/proplatform_all_%d{yyyy-MM-dd}.%i.log.zip
             </FileNamePattern>
             <!-- 当天的日志大小 超过${log.max.size}时,压缩日志并保存 -->
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">

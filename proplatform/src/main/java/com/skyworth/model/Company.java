@@ -33,4 +33,12 @@ public class Company {
         this.companyPassword = companyPassword;
         this.companySalt = companySalt;
     }
+
+    public Company(Company company) {
+        this.id = company.getId();
+        this.companyName = company.getCompanyName();
+        this.companyPhoneNum = company.getCompanyPhoneNum();
+        this.companyPassword = company.getCompanyPassword();
+        this.companySalt = company.getCompanySalt();
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -38,6 +39,9 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private MessageMapper messageMapper;
+
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
     public boolean register(Company company) {
@@ -438,6 +442,16 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public Message getMessage(int id) {
         return messageMapper.findById(id);
+    }
+
+    @Override
+    public Set<Role> getAllRoles(int companyId) {
+        return mapper.getAllRoles(companyId);
+    }
+
+    @Override
+    public Set<Permission> getAllPermissions(int roleId) {
+        return roleMapper.getAllPermissions(roleId);
     }
 
 

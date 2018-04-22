@@ -4,8 +4,8 @@
 
     <insert id="save">
         INSERT INTO
-        patent(user_id, patent_img, patent_name, patent_owner, patent_certi_code, patent_apply_date, patent_auth_date, patent_contact)
-        VALUES (#{userId},#{patentImg},#{patentName},#{patentOwner},#{patentCertiCode},#{patentApplyDate},#{patentAuthDate},#{patentContact})
+        patent(user_id, patent_img, patent_name, patent_owner, patent_num, patent_apply_date, patent_auth_date, patent_certi_code, patent_contact)
+        VALUES (#{userId},#{patentImg},#{patentName},#{patentOwner},#{patentNum},#{patentApplyDate},#{patentAuthDate},#{patentCertiCode}#{patentContact})
     </insert>
     <update id="update">
         update patent
@@ -22,14 +22,17 @@
             <if test="patentOwner != null">
                 patent_owner = #{patentOwner,jdbcType=VARCHAR},
             </if>
-            <if test="patentCertiCode != null">
-                patent_certi_code = #{patentCertiCode,jdbcType=VARCHAR},
+            <if test="patentNum != null">
+                patent_num = #{patentNum,hdbcType=VARCHAR}
             </if>
             <if test="patentApplyDate != null">
                 patent_apply_date = #{patentApplyDate,jdbcType=BIGINT},
             </if>
             <if test="patentAuthDate != null">
                 patent_auth_date = #{patentAuthDate,jdbcType=BIGINT},
+            </if>
+            <if test="patentCertiCode != null">
+                patent_certi_code = #{patentCertiCode,jdbcType=VARCHAR},
             </if>
             <if test="patentContact != null">
                 patent_contact = #{patentContact,jdbcType=VARCHAR}
@@ -74,9 +77,10 @@
         <result column="patent_img" property="patentImg"/>
         <result column="patent_name" property="patentName"/>
         <result column="patent_owner" property="patentOwner"/>
-        <result column="patent_certi_code" property="patentCertiCode"/>
+        <result column="patent_num" property="patentNum"/>
         <result column="patent_apply_date" property="patentApplyDate"/>
         <result column="patent_auth_date" property="patentAuthDate"/>
+        <result column="patent_certi_code" property="patentCertiCode"/>
         <result column="patent_contact" property="patentContact"/>
         <result column="modification_time" property="modificationTime"/>
     </resultMap>

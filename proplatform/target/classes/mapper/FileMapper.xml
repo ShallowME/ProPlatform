@@ -5,7 +5,7 @@
     <insert id="save">
         INSERT INTO
         file(stage_id, user_id, company_id, file_name, file_size, file_uploader,file_modifydate,file_url)
-        VALUES(#{stageId},#{userId},#{companyId},#{fileName},#{fileSize},#{fileUploader},#{fileModifydate},#{fileUrl})
+        VALUES(#{stageId},#{userId},#{companyId},#{fileName},#{fileSize},#{fileUploader},#{fileModifyDate},#{fileUrl})
     </insert>
 
     <update id="updateByUser">
@@ -27,7 +27,7 @@
                 file_Uploader = #{fileUploader, jdbcType=VARCHAR},
             </if>
             <if test="fileModifydate != null">
-                file_modifydate = #{fileModifydate},
+                file_modifyDate = #{fileModifyDate},
             </if>
             <if test="fileUrl != null">
                 file_url = #{fileUrl, jdbcType=VARCHAR}
@@ -54,8 +54,8 @@
             <if test="fileUploader != null">
                 file_Uploader = #{fileUploader, jdbcType=VARCHAR},
             </if>
-            <if test="fileModifydate != null">
-                file_modifydate = #{fileModifydate},
+            <if test="fileModifyDate != null">
+                file_modifydate = #{fileModifyDate},
             </if>
             <if test="fileUrl != null">
                 file_url = #{fileUrl, jdbcType=VARCHAR}
@@ -82,8 +82,8 @@
             <if test="fileUploader != null">
                 file_Uploader = #{fileUploader, jdbcType=VARCHAR},
             </if>
-            <if test="fileModifydate != null">
-                file_modifydate = #{fileModifydate},
+            <if test="fileModifyDate != null">
+                file_modifydate = #{fileModifyDate},
             </if>
             <if test="fileUrl != null">
                 file_url = #{fileUrl, jdbcType=VARCHAR}
@@ -112,8 +112,8 @@
             <if test="fileUploader != null">
                 file_Uploader = #{fileUploader, jdbcType=VARCHAR},
             </if>
-            <if test="fileModifydate != null">
-                file_modifydate = #{fileModifydate},
+            <if test="fileModifyDate != null">
+                file_modifydate = #{fileModifyDate},
             </if>
             <if test="fileUrl != null">
                 file_url = #{fileUrl, jdbcType=VARCHAR}

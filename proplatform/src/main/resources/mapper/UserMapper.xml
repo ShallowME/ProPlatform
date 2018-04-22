@@ -2,10 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.skyworth.mapper.UserMapper">
 
-<insert id="save">
+    <resultMap id="userList" type="com.skyworth.model.User">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_phone_num" property="userPhoneNum"/>
+        <result column="user_password" property="userPassword"/>
+        <result column="user_salt" property="userSalt"/>
+    </resultMap>
+
+    <resultMap id="roleSet" type="com.skyworth.model.Role">
+        <id column="id" property="id"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_description" property="roleDescription"/>
+    </resultMap>
+    
+    <insert id="save">
         INSERT INTO user(user_name,user_phone_num,user_password,user_salt,modification_time)
         values(#{userName},#{userPhoneNum},#{userPassword},#{userSalt},#{modificationTime})
     </insert>
+    
     <update id="updatePassword">
         UPDATE user
         SET user_password = #{newPassword}
@@ -29,16 +44,32 @@
         FROM user
         WHERE user_phone_num = #{phoneNum}
     </select>
+
     <select id="countByName" resultType="java.lang.Integer">
         SELECT count(id) FROM user
         WHERE user_name = #{userName};
     </select>
+
     <select id="countByPhoneNum" resultType="java.lang.Integer">
         SELECT count(id) FROM user
         WHERE user_phone_num = #{phoneNum};
     </select>
+
     <select id="countUser" resultType="java.lang.Long">
         SELECT count(id) FROM user
+    </select>
+
+    <select id="getAllRoles" resultMap="roleSet">
+        SELECT DISTINCT
+            role.id,
+            role.role_name,
+            role.role.description
+        FROM user u
+        INNER JOIN user_role ur
+        ON u.id = ur.user_id
+        INNER JOIN role r
+        ON ur.role_id = r.id
+        WHERE u.id = #{userId}
     </select>
 
 </mapper>

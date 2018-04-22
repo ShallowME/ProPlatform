@@ -25,22 +25,20 @@
         <constructor-arg name="host" value="${redis.host}" />
         <constructor-arg name="port" value="${redis.port}" type="int" />
         <constructor-arg name="timeout" value="${redis.timeout}" type="int" />
-        <constructor-arg name="password" value="#{'${redis.password}'!=''?'${redis.password}':null}" />
+        <!--<constructor-arg name="password" value="#{'${redis.password}'!=''?'${redis.password}':null}" />-->
+        <constructor-arg name="password" value="${redis.pass}" />
     </bean>
 
     <!--baseRedisManager配置-->
-    <bean name="BaseRedisManager" class="com.skyworth.utils.redis.BaseRedisManager">
+    <bean name="baseRedisManager" class="com.skyworth.utils.redis.BaseRedisManager">
         <property name="jedisPool" ref="jedisPool"/>
     </bean>
 
     <!--redisCacheDao配置-->
-    <bean name="redisCacheDao" class="com.skyworth.utils.redis.RedisCacheDao"/>
+    <bean name="redisCacheDao" class="com.skyworth.utils.redis.RedisCacheDao" />
 
     <!--配置redisCacheService，让shiro使用redis的缓存-->
     <bean id="redisCacheService" class="com.skyworth.utils.redis.RedisCacheService"/>
 
 
-    <!-- redisSesionDAO配置 -->
-    <bean id="redisSessionDAO" class="com.skyworth.utils.redis.RedisSessionDAO">
-    </bean>
 </beans>

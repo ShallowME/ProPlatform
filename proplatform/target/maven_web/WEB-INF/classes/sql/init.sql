@@ -33,11 +33,11 @@ CREATE TABLE user_info(
   user_url VARCHAR(255),
   user_realname VARCHAR(255),
   user_sex VARCHAR(255),
-  user_address VARCHAR(255),
+  user_province VARCHAR(255),
+  user_city VARCHAR(255),
   user_school VARCHAR(255),
   user_major VARCHAR(255),
   user_mailbox VARCHAR(255),
-  user_profession VARCHAR(255),
   modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间'
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -49,7 +49,7 @@ CREATE TABLE company(
   company_name VARCHAR(255),
   company_phone_num VARCHAR(255),
   company_password VARCHAR(255),
-  comapny_salt VARCHAR(255),
+  company_salt VARCHAR(255),
   modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -121,7 +121,8 @@ CREATE TABLE resume(
   resume_img VARCHAR(255),
   resume_realname VARCHAR(255),
   resume_sex VARCHAR(255),
-  resume_address VARCHAR(255),
+  resume_birth VARCHAR(255),
+  resume_education VARCHAR(255),
   resume_school VARCHAR(255),
   resume_major VARCHAR(255),
   resume_mailbox VARCHAR(255),
@@ -140,9 +141,10 @@ CREATE TABLE patent(
   patent_img VARCHAR(255),
   patent_name VARCHAR(255),
   patent_owner VARCHAR(255),
-  patent_certi_code VARCHAR(255),
+  patent_num VARCHAR(255),
   patent_apply_date BIGINT,
   patent_auth_date BIGINT,
+  patent_certi_code VARCHAR(255),
   patent_contact VARCHAR(255),
   modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改的时间'
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
@@ -168,7 +170,7 @@ CREATE TABLE project(
   company_id INT,
   company_name VARCHAR(255),
   pro_name VARCHAR(255),
-  pro_money VARCHAR(255),
+  pro_money BIGINT,
   pro_type VARCHAR(255),
   pro_cycle INT,
   pro_pubtime BIGINT,

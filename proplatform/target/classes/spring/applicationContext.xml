@@ -37,6 +37,10 @@
         <property name="checkoutTimeout" value="1000"/>
         <!-- 获取连接失败重试次数 -->
         <property name="acquireRetryAttempts" value="2"/>
+
+        <!--<property name="maxIdleTimeExcessConnections" value="20"/>-->
+
+        <!--<property name="maxConnectionAge" value="20"/>-->
     </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

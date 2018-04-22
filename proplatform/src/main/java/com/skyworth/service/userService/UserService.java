@@ -3,6 +3,7 @@ package com.skyworth.service.userService;
 import com.skyworth.model.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Shallow on 2018/3/6.
@@ -89,6 +90,7 @@ public interface UserService {
 
     boolean removeMessageByBatch(List<Integer> list);
 
-    
-    
+    Set<Role> getAllRoles(int userId);
+
+    Set<Permission> getAllPermissions(int roleId);
 }

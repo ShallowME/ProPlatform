@@ -12,7 +12,7 @@ public interface ShiroSessionRepository {
 
     void saveSession(Session session);
 
-    void deleteSession(Session session);
+    void deleteSession(Serializable sessionId);
 
     Session getSession(Serializable sessionId);
 

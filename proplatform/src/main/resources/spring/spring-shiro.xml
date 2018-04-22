@@ -14,28 +14,72 @@
         <property name="storedCredentialsHexEncoded" value="true" />
     </bean>
 
+    <bean id="authenticator" class="com.skyworth.utils.shiro.CustomizedModularRealmAuthenticator">
+        <property name="authenticationStrategy">
+            <bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"/>
+        </property>
+    </bean>
 
     <!--配置自定义realm-->
-    <bean id="securityRealm" class="com.skyworth.utils.shiro.SecurityRealm">
+    <bean id="userSecurityRealm" class="com.skyworth.utils.shiro.UserSecurityRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher" />
-        <property name="cachingEnabled" value="false" />
+        <property name="cachingEnabled" value="true" />
         <!-- 使用下面配置的缓存管理器 -->
         <property name="cacheManager" ref="redisCacheService" />
     </bean>
 
-    <bean id="sessionIdGenerator"
-          class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
-
-    <!-- 会话管理器 -->
-    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-        <property name="sessionDAO" ref="redisSessionDAO"/>
-        <property name="globalSessionTimeout" value="600000"/>
-        <property name="deleteInvalidSessions" value="true"/>
+    <bean id="companySecurityRealm" class="com.skyworth.utils.shiro.CompanySecurityRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher" />
+        <property name="cachingEnabled" value="true" />
+        <!-- 使用下面配置的缓存管理器 -->
+        <property name="cacheManager" ref="redisCacheService" />
     </bean>
+
+    <!-- 会话管理 -->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+
+    <bean id="customSessionDAO" class="com.skyworth.utils.shiro.session.CustomSessionDAO"/>
+
+    <bean id="userSessionService" class="com.skyworth.utils.shiro.session.UserSessionService"/>
+
+    <bean id="companySessionService" class="com.skyworth.utils.shiro.session.CompanySessionService"/>
+
+    <bean id="customSessionListener" class="com.skyworth.listener.CustomSessionListener"/>
+
+    <bean id="baseShiroSessionRepository" class="com.skyworth.utils.shiro.session.BaseSessionRepository"/>
+
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+    <!-- 相隔多久检查一次session的有效性   -->
+    <property name="sessionValidationInterval" value="1800000"/>
+    <!-- session 有效时间为半小时 （毫秒单位）-->
+    <property name="globalSessionTimeout" value="1800000"/>
+        <property name="sessionDAO" ref="customSessionDAO"/>
+
+    <!-- session 监听，可以多个。 -->
+    <property name="sessionListeners">
+        <list>
+            <ref bean="customSessionListener"/>
+        </list>
+    </property>
+    <!-- 间隔多少时间检查，不配置是60分钟 -->
+    <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
+    <!-- 是否开启 检测，默认开启 -->
+    <property name="sessionValidationSchedulerEnabled" value="true"/>
+    <!-- 是否删除无效的，默认也是开启 -->
+    <property name="deleteInvalidSessions" value="true"/>
+    <!-- 会话Cookie模板 -->
+    <property name="sessionIdCookie" ref="sessionIdCookie"/>
+</bean>
 
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="realm" ref="securityRealm" />
+        <property name="realms">
+            <list>
+                <ref bean="userSecurityRealm"/>
+                <ref bean="companySecurityRealm"/>
+            </list>
+        </property>
+
         <property name="sessionManager" ref="sessionManager"/>
         <property name="cacheManager" ref="redisCacheService"/>
     </bean>

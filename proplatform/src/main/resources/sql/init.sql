@@ -170,7 +170,7 @@ CREATE TABLE project(
   company_id INT,
   company_name VARCHAR(255),
   pro_name VARCHAR(255),
-  pro_money VARCHAR(255),
+  pro_money BIGINT,
   pro_type VARCHAR(255),
   pro_cycle INT,
   pro_pubtime BIGINT,

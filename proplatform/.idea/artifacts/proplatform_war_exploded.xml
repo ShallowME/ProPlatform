@@ -55,6 +55,7 @@
           <element id="library" level="project" name="Maven: io.protostuff:protostuff-api:1.6.0" />
           <element id="library" level="project" name="Maven: io.protostuff:protostuff-runtime:1.6.0" />
           <element id="library" level="project" name="Maven: io.protostuff:protostuff-collectionschema:1.6.0" />
+          <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">

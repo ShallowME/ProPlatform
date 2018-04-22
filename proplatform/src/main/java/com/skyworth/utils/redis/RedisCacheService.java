@@ -6,6 +6,7 @@ import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.util.Destroyable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.cache.RedisCacheManager;
 
 import javax.annotation.Resource;

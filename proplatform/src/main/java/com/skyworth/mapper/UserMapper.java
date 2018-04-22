@@ -1,9 +1,11 @@
 package com.skyworth.mapper;
 
+import com.skyworth.model.Role;
 import com.skyworth.model.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
+import java.util.Set;
 
 
 /**
@@ -26,4 +28,7 @@ public interface UserMapper {
     long countUser();
 
     void updatePassword(@Param("userName") String userName, @Param("newPassword") String newPassword);
+
+    Set<Role> getAllRoles(@Param("userId") int userId);
+
 }

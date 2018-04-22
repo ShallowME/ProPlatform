@@ -89,5 +89,6 @@
     <orderEntry type="library" name="Maven: io.protostuff:protostuff-api:1.6.0" level="project" />
     <orderEntry type="library" name="Maven: io.protostuff:protostuff-runtime:1.6.0" level="project" />
     <orderEntry type="library" name="Maven: io.protostuff:protostuff-collectionschema:1.6.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.2" level="project" />
   </component>
 </module>
