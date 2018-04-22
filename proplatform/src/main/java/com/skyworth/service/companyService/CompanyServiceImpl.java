@@ -47,7 +47,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             mapper.save(company);
         } catch (DuplicateKeyException e) {
-            logger.error("插入失败",e);
+            logger.error("插入失败", e);
             return false;
         }
         return true;
@@ -60,7 +60,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Company getByCompanyNameAndPassword(String companyName, String password) {
-        return mapper.findByCompanyNameAndPassword(companyName,password);
+        return mapper.findByCompanyNameAndPassword(companyName, password);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             mapper.updatePassword(companyName, newPassword);
         } catch (Exception e) {
-            logger.error("更新失败",e);
+            logger.error("更新失败", e);
             return false;
         }
         return true;
@@ -101,7 +101,7 @@ public class CompanyServiceImpl implements CompanyService {
             }
 
         } catch (Exception e) {
-            logger.error("插入失败",e);
+            logger.error("插入失败", e);
             return false;
         }
         return true;
@@ -116,7 +116,7 @@ public class CompanyServiceImpl implements CompanyService {
                 companyInfoMapper.save(info);
             }
         } catch (Exception e) {
-            logger.error("更新失败",e);
+            logger.error("更新失败", e);
             return false;
         }
         return true;
@@ -132,7 +132,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             companyInfoMapper.delete(companyId);
         } catch (Exception e) {
-            logger.error("删除失败",e);
+            logger.error("删除失败", e);
             return false;
         }
         return true;
@@ -143,7 +143,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             projectMapper.save(project);
         } catch (Exception e) {
-            logger.error("插入失败",e);
+            logger.error("插入失败", e);
             return false;
         }
         return true;
@@ -154,7 +154,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             projectMapper.update(project);
         } catch (Exception e) {
-            logger.error("更新失败",e);
+            logger.error("更新失败", e);
             return false;
         }
         return true;
@@ -165,7 +165,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             projectMapper.delete(id);
         } catch (Exception e) {
-            logger.error("删除失败",e);
+            logger.error("删除失败", e);
             return false;
         }
         return true;
@@ -192,7 +192,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             stageMapper.update(stage);
         } catch (Exception e) {
-            logger.error("更新失败",e);
+            logger.error("更新失败", e);
             return false;
         }
         return true;
@@ -203,7 +203,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             stageMapper.delete(id);
         } catch (Exception e) {
-            logger.error("删除失败",e);
+            logger.error("删除失败", e);
             return false;
         }
         return true;
@@ -224,7 +224,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             targetMapper.save(target);
         } catch (Exception e) {
-            logger.error("插入失败",e);
+            logger.error("插入失败", e);
             return false;
         }
         return true;
@@ -235,7 +235,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             targetMapper.update(target);
         } catch (Exception e) {
-            logger.error("更新失败",e);
+            logger.error("更新失败", e);
             return false;
         }
         return true;
@@ -246,7 +246,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             targetMapper.delete(targetId);
         } catch (Exception e) {
-            logger.error("删除失败",e);
+            logger.error("删除失败", e);
             return false;
         }
         return true;
@@ -257,7 +257,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             targetMapper.deleteByBatch(list);
         } catch (Exception e) {
-            logger.error("删除失败",e);
+            logger.error("删除失败", e);
             return false;
         }
         return true;
@@ -278,7 +278,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             fileMapper.save(file);
         } catch (Exception e) {
-            logger.error("插入失败",e);
+            logger.error("插入失败", e);
             return false;
         }
         return true;
@@ -289,7 +289,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             fileMapper.update(file);
         } catch (Exception e) {
-            logger.error("更新失败",e);
+            logger.error("更新失败", e);
             return false;
         }
         return true;
@@ -300,7 +300,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             fileMapper.delete(fileId);
         } catch (Exception e) {
-            logger.error("删除失败",e);
+            logger.error("删除失败", e);
             return false;
         }
         return true;
@@ -311,7 +311,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             fileMapper.deleteByBatch(list);
         } catch (Exception e) {
-            logger.error("删除失败",e);
+            logger.error("删除失败", e);
             return false;
         }
         return true;
@@ -337,7 +337,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             inviteMapper.save(invite);
         } catch (Exception e) {
-            logger.error("插入失败",e);
+            logger.error("插入失败", e);
             return false;
         }
         return true;
@@ -348,7 +348,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             inviteMapper.update(invite);
         } catch (Exception e) {
-            logger.error("更新失败",e);
+            logger.error("更新失败", e);
             return false;
         }
         return true;
@@ -359,7 +359,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             inviteMapper.delete(id);
         } catch (Exception e) {
-            logger.error("删除失败",e);
+            logger.error("删除失败", e);
             return false;
         }
         return true;
@@ -370,7 +370,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             inviteMapper.deleteByBatch(list);
         } catch (Exception e) {
-            logger.error("删除失败",e);
+            logger.error("删除失败", e);
             return false;
         }
         return true;
@@ -397,7 +397,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             messageMapper.save(message);
         } catch (Exception e) {
-            logger.error("插入失败",e);
+            logger.error("插入失败", e);
             return false;
         }
         return true;
@@ -408,7 +408,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             messageMapper.delete(mesId);
         } catch (Exception e) {
-            logger.error("删除失败",e);
+            logger.error("删除失败", e);
             return false;
         }
         return true;
@@ -419,7 +419,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             messageMapper.deleteByBatch(list);
         } catch (Exception e) {
-            logger.error("删除失败",e);
+            logger.error("删除失败", e);
             return false;
         }
         return true;
@@ -431,6 +431,11 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    public List<Message> getOfflineMessages(int companyId) {
+        return messageMapper.findOfflineMessagesByCompanyId(companyId);
+    }
+
+    @Override
     public List<Message> getMessageByUser(int userId) {
         return messageMapper.findByUserId(userId);
     }
@@ -438,6 +443,25 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public Message getMessage(int id) {
         return messageMapper.findById(id);
+    }
+
+    @Override
+    public List<Message> getMessageByMesState(int companyId, int mesState) {
+        return messageMapper.findMessageByCompanyIdAndMesState(companyId, mesState);
+    }
+
+    @Override
+    public boolean modifyMessageState(List<Integer> ids, Integer changeCode) {
+        if (ids.size() == 0 || changeCode == null) {
+            return false;
+        }
+        try {
+            messageMapper.modifyStateByBatch(ids, changeCode);
+        } catch (Exception e) {
+            logger.error(e);
+            return false;
+        }
+        return true;
     }
 
 

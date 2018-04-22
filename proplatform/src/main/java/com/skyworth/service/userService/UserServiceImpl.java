@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -41,6 +40,7 @@ public class UserServiceImpl implements UserService {
     private MessageMapper messageMapper;
 
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
+
     @Override
     public boolean register(User user) {
         if (checkUserExist(user.getUserName())) {
@@ -386,6 +386,30 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean modifyMessageState(List<Integer> list, Integer changCode) {
+        if (list.size() == 0 || changCode == null) {
+            return false;
+        }
+        try {
+            messageMapper.modifyStateByBatch(list, changCode);
+        } catch (Exception e) {
+            LOGGER.error(e);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public List<Message> getOfflineMessages(int userId) {
+        return messageMapper.findOfflineMessagesByCompanyId(userId);
+    }
+
+    @Override
+    public List<Message> getMessageByMesState(int userId, int mesState) {
+        return messageMapper.findMessageByUserIdAndMesState(userId, mesState);
     }
 
 }

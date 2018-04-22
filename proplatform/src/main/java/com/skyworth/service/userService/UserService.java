@@ -64,7 +64,7 @@ public interface UserService {
     boolean updateFile(File file);
 
     File getFileById(int fileId);
-        
+
     List<File> getFilesByUserId(int userId);
 
     boolean removeFile(int fileId);
@@ -84,11 +84,15 @@ public interface UserService {
     List<Message> getMessageByUserId(int userId);
 
     Message getMessageById(int id);
-    
+
     boolean removeMessage(int mesId);
 
     boolean removeMessageByBatch(List<Integer> list);
 
-    
-    
+    boolean modifyMessageState(List<Integer> list, Integer changCode);
+
+    List<Message> getOfflineMessages(int userId);
+
+    List<Message> getMessageByMesState(int userId, int mesState);
+
 }

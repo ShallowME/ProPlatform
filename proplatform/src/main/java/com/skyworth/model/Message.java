@@ -6,6 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Date;
+/**
+ * @author li
+ */
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -15,6 +18,9 @@ public class Message {
     private Integer userId;
     private Integer companyId;
     private String mesContent;
+
+    //-1：离线消息，0：未读消息，1已读消息，2：标记消息
+
     private Integer mesState;
     private Date modificationTime;
 

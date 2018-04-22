@@ -49,7 +49,7 @@ CREATE TABLE company(
   company_name VARCHAR(255),
   company_phone_num VARCHAR(255),
   company_password VARCHAR(255),
-  comapny_salt VARCHAR(255),
+  company_salt VARCHAR(255),
   modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 

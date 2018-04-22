@@ -36,15 +36,15 @@
         </layout>
     </appender>
 
-    <!--指定全局Appender-->
+ <!--   &lt;!&ndash;指定全局Appender&ndash;&gt;
     <logger name="com.skyworth" additivity="false">
         <level value="DEBUG"/>
-        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="stdout"/>
     </logger>
 
-    <!-- 配置将级别为“DEBUG”及大于“DEBUG”的日志信息交给Console处理 -->
+    &lt;!&ndash; 配置将级别为“DEBUG”及大于“DEBUG”的日志信息交给Console处理 &ndash;&gt;
     <root level="DEBUG">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="stdout" />
     </root>
-
+-->
 </configuration>
