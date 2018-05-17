@@ -86,6 +86,17 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+
+    @Override
+    public boolean updatePhoneNum(String username, String newPhoneNum){
+        try {
+            userMapper.updatePhoneNum(username,newPhoneNum);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public boolean setInfo(UserInfo info) {
         try {
@@ -201,9 +212,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Patent> getPatentByUserId(int userId) {
-        return patentMapper.findPatentByUserId(userId);
+    public Patent getPatentByUserId(int userId){return  patentMapper.findPatentByUserId(userId);}
+
+    @Override
+    public List<Patent> getPatentsByUserId(int userId) {
+        return patentMapper.findPatentsByUserId(userId);
     }
+
+    @Override
+    public Patent getPatentByUserName(String userName){return patentMapper.findByPatentOwner(userName);}
 
     @Override
     public boolean setSubscribe(Subscribe subscribe) {

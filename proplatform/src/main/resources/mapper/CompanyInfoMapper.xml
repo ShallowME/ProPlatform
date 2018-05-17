@@ -29,6 +29,7 @@
         DELETE FROM company_info
         WHERE company_id = #{companyId}
     </delete>
+
     <select id="findInfo" resultType="com.skyworth.model.CompanyInfo">
         SELECT *
         FROM company_info

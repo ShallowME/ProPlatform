@@ -26,4 +26,5 @@ public interface UserMapper {
     long countUser();
 
     void updatePassword(@Param("userName") String userName, @Param("newPassword") String newPassword);
+    void updatePhoneNum(@Param("userName") String userName, @Param("newPhoneNum") String newphoneNum);
 }

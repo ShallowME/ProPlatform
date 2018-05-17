@@ -11,6 +11,11 @@
         SET user_password = #{newPassword}
         WHERE user_name = #{userName}
     </update>
+    <update id="updatePhoneNum">
+        UPDATE user
+        SET user_phone_num = #{newPhoneNum}
+        WHERE user_name = #{userName}
+    </update>
 
     <select id="findByUsernameAndPassword" resultType="com.skyworth.model.User">
         SELECT *

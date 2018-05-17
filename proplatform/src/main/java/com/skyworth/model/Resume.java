@@ -15,8 +15,9 @@ public class Resume {
     private String resumeImg;
     private String resumeRealname;
     private String resumeSex;
-    private String resumeAddress;
+    private String resumeBirth;
     private String resumeSchool;
+    private String resumeEducation;
     private String resumeMajor;
     private String resumeMailbox;
     private String resumePhonenum;
@@ -26,14 +27,15 @@ public class Resume {
 
     public Resume() {}
 
-    public Resume(Integer id, Integer userId, String resumeImg, String resumeRealname, String resumeSex, String resumeAddress, String resumeSchool, String resumeMajor, String resumeMailbox, String resumePhonenum, String resumeSchExperience, String resumeWorkExperience, String modificationTime) {
+    public Resume(Integer id, Integer userId, String resumeImg, String resumeRealname, String resumeSex, String resumeBirth, String resumeSchool, String resumeEducation, String resumeMajor, String resumeMailbox, String resumePhonenum, String resumeSchExperience, String resumeWorkExperience, String modificationTime) {
         this.id = id;
         this.userId = userId;
         this.resumeImg = resumeImg;
         this.resumeRealname = resumeRealname;
         this.resumeSex = resumeSex;
-        this.resumeAddress = resumeAddress;
+        this.resumeBirth = resumeBirth;
         this.resumeSchool = resumeSchool;
+        this.resumeEducation = resumeEducation;
         this.resumeMajor = resumeMajor;
         this.resumeMailbox = resumeMailbox;
         this.resumePhonenum = resumePhonenum;
@@ -41,6 +43,5 @@ public class Resume {
         this.resumeWorkExperience = resumeWorkExperience;
         this.modificationTime = modificationTime;
     }
-
-
 }
+

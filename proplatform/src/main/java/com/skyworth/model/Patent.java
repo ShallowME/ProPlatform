@@ -17,24 +17,27 @@ public class Patent {
     private String patentImg;
     private String patentName;
     private String patentOwner;
-    private String patentCertiCode;
+    private String patentNum;
     private Long patentApplyDate;
     private Long patentAuthDate;
+    private String patentCertiCode;
     private String patentContact;
     private Date modificationTime;
 
-    public Patent(Integer id, Integer userId, String patentImg, String patentName, String patentOwner, String patentCertiCode, Long patentApplyDate, Long patentAuthDate, String patentContact, Date modificationTime) {
+    public Patent() {}
+
+    public Patent(Integer id, Integer userId, String patentImg, String patentName, String patentOwner, String patentNum, Long patentApplyDate, Long patentAuthDate
+            , String patentCertiCode, String patentContact, Date modificationTime) {
         this.id = id;
         this.userId = userId;
         this.patentImg = patentImg;
         this.patentName = patentName;
         this.patentOwner = patentOwner;
-        this.patentCertiCode = patentCertiCode;
+        this.patentNum = patentNum;
         this.patentApplyDate = patentApplyDate;
         this.patentAuthDate = patentAuthDate;
+        this.patentCertiCode = patentCertiCode;
         this.patentContact = patentContact;
         this.modificationTime = modificationTime;
     }
-
-    public Patent() {}
 }

@@ -9,7 +9,7 @@
         <module name="proplatform" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
+    <bytecodeTargetLevel>
       <module name="proplatform" target="1.8" />
     </bytecodeTargetLevel>
   </component>

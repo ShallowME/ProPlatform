@@ -21,6 +21,8 @@ public interface UserService {
 
     boolean updatePassword(String username, String newPassword);
 
+    boolean updatePhoneNum(String username, String newPhoneNum);
+
     boolean setInfo(UserInfo info);
 
     boolean updateInfo(UserInfo info);
@@ -45,7 +47,11 @@ public interface UserService {
 
     Patent getPatentById(int id);
 
-    List<Patent> getPatentByUserId(int userId);
+    Patent getPatentByUserId(int id);
+
+    List<Patent> getPatentsByUserId(int userId);
+
+    Patent  getPatentByUserName(String userName);
 
     boolean setSubscribe(Subscribe subscribe);
 

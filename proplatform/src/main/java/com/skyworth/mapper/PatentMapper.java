@@ -18,12 +18,15 @@ public interface PatentMapper {
 
     Patent findPatentById(@Param("id") int patentId);
 
-    List<Patent> findPatentByUserId(@Param("userId") int userId);
+    Patent findPatentByUserId(@Param("userId") int userId);
+
+    List<Patent> findPatentsByUserId(@Param("userId") int userId);
 
     Patent findByPatentName(@Param("patentName") String patentName);
 
     int countByPatentName(@Param("patentName") String patentName);
 
-    List<Patent> findByPatentOwner(@Param("patentOwner") String patentOwner);
+    Patent findByPatentOwner(@Param("patentOwner") String patentOwner);
+
 
 }
