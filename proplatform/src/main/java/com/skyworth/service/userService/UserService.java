@@ -1,5 +1,8 @@
 package com.skyworth.service.userService;
 
+import com.skyworth.dto.ApplyDto;
+import com.skyworth.dto.ProjectDto;
+import com.skyworth.dto.UserDto;
 import com.skyworth.model.*;
 
 import java.util.List;
@@ -10,9 +13,11 @@ import java.util.Set;
  */
 public interface UserService {
 
-    boolean register(User user);
+    boolean register(UserDto userDto);
 
     boolean checkUserExist(String username);
+
+    User getByUserId(int userId);
 
     User getByUsernameAndPassword(User user);
 
@@ -20,7 +25,9 @@ public interface UserService {
 
     User getByPhoneNum(String phoneNum);
 
-    boolean updatePassword(String username, String newPassword);
+    void updatePasswordByPhoneNum(String userPhoneNum, String newPassword);
+
+    void updatePasswordById(int userId, String newPassword);
 
     boolean setInfo(UserInfo info);
 
@@ -60,19 +67,19 @@ public interface UserService {
 
     boolean removeSubscribeByBatch(List<Integer> list);
 
-    boolean saveFile(File file);
+    boolean saveFile(WorkFile workFile);
 
-    boolean updateFile(File file);
+    boolean updateFile(WorkFile workFile);
 
-    File getFileById(int fileId);
+    WorkFile getFileById(int fileId);
         
-    List<File> getFilesByUserId(int userId);
+    List<WorkFile> getFilesByUserId(int userId);
 
     boolean removeFile(int fileId);
 
     boolean removeFileByBatch(List<Integer> list);
 
-    boolean saveApply(Apply apply);
+    boolean saveApply(ApplyDto applyDto);
 
     boolean updateApply(Apply apply);
 
@@ -93,4 +100,24 @@ public interface UserService {
     Set<Role> getAllRoles(int userId);
 
     Set<Permission> getAllPermissions(int roleId);
+
+    List<ProjectDto> getProjectsByName(String proName);
+
+    List<ProjectDto> getProjectsByType(String type);
+
+    List<ProjectDto> getProjectsByMoney(double minMoney, double maxMoney);
+
+    List<ProjectDto> getProjectsByCycle(int minCycle, int maxCycle);
+
+    List<ProjectDto> orderForProjects(int orderCode);
+
+    List<ProjectDto> getBySubscribe(int userId);
+
+    List<ProjectDto> getProjectsByConditions(String proName, int typeCode, double minProMoney, double maxProMoney, int maxProCycle);
+
+    ProjectDto getProjectById(int proId);
+
+    Boolean applyForProject(int userId, int proId);
+
+    List<ProjectDto> selectProjects(int userId, int selectCode);
 }

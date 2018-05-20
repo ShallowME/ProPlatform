@@ -26,4 +26,5 @@ public interface PatentMapper {
 
     List<Patent> findByPatentOwner(@Param("patentOwner") String patentOwner);
 
+    List<Patent> findPatentsByName(@Param("patentName") String patentName);
 }

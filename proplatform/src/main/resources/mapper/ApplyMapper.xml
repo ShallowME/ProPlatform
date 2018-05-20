@@ -49,4 +49,27 @@
         SELECT * FROM apply
         WHERE id = #{id}
     </select>
+    <select id="findByCompanyId" resultType="applicationsMap">
+        SELECT * FROM apply
+        WHERE company_id = #{companyId}
+        ORDER BY apply_mark DESC, id DESC
+    </select>
+    <select id="findByProjectId" resultType="applicationsMap">
+        SELECT * apply
+        WHERE pro_id = #{projectId}
+        ORDER BY apply_mark DESC, id DESC
+    </select>
+    <select id="completedApplications" resultType="java.lang.Long">
+        SELECT count(id) FROM apply
+        WHERE apply_state = 3 AND resume_id = #{resume_id}
+    </select>
+    <resultMap id="applicationsMap" type="com.skyworth.model.Apply">
+        <id column="id" property="id"/>
+        <result column="applicant_id" property="applicantId"/>
+        <result column="resume_id" property="resumeId"/>
+        <result column="company_id" property="companyId"/>
+        <result column="pro_id" property="proId"/>
+        <result column="apply_state" property="applyState"/>
+        <result column="apply_mark" property="applyMark"/>
+    </resultMap>
 </mapper>

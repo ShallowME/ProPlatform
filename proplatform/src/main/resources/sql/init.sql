@@ -60,6 +60,7 @@ CREATE TABLE company_info(
   company_id INT,
   company_logo VARCHAR(255),
   company_realname VARCHAR(255),
+  company_location VARCHAR(255),
   company_major VARCHAR(255),
   company_description VARCHAR(255),
   modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改的时间'
@@ -117,7 +118,7 @@ ALTER TABLE role_permission ADD FOREIGN KEY (`permission_id`) REFERENCES permiss
 -- 创建简历表
 CREATE TABLE resume(
   id INT PRIMARY KEY AUTO_INCREMENT,
-  user_id INT,
+  user_id INT UNIQUE,
   resume_img VARCHAR(255),
   resume_realname VARCHAR(255),
   resume_sex VARCHAR(255),
@@ -174,10 +175,10 @@ CREATE TABLE project(
   pro_type VARCHAR(255),
   pro_cycle INT,
   pro_pubtime BIGINT,
-  pro_enrollment INT,
+  pro_enrollment INT DEFAULT 0,
   pro_description TEXT,
   pro_request TEXT,
-  pro_state INT,
+  pro_state INT DEFAULT 0 CHECK (pro_state IN (0, 1, 2, 3)),
   modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改的时间'
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -190,8 +191,8 @@ CREATE TABLE stage(
   stage_num INT,
   stage_starttime BIGINT,
   stage_endtime BIGINT,
-  stage_settletime BIGINT,
-  stage_speed INT,
+  stage_settlerequest BIGINT,
+  stage_speed INT DEFAULT 0,
   modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改的时间'
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -203,41 +204,57 @@ CREATE TABLE target(
   stage_id INT,
   target_deadline BIGINT,
   target_detail TEXT,
-  target_remarks TEXT,
+  target_state INT DEFAULT 0 CHECK (target_state IN (0, 1)),
   modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改的时间'
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 ALTER TABLE target ADD FOREIGN KEY (`stage_id`) REFERENCES stage(`id`) ON DELETE CASCADE;
 
--- 创建项目文件表
-CREATE TABLE file(
+-- 创建项目成果文件表
+CREATE TABLE work_file(
   id INT PRIMARY KEY AUTO_INCREMENT,
-  stage_id INT,
+  target_id INT,
   user_id INT,
-  company_id INT,
-  file_name VARCHAR(255),
-  file_size FLOAT,
-  file_uploader VARCHAR(255),
-  file_modifydate BIGINT,
-  file_url VARCHAR(255),
+  work_file_name VARCHAR(255),
+  work_file_size FLOAT,
+  work_file_uploader VARCHAR(255),
+  work_file_modifydate BIGINT,
+  work_file_url VARCHAR(255),
   modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改的时间'
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-ALTER TABLE file ADD FOREIGN KEY (`stage_id`) REFERENCES stage(`id`) ON DELETE CASCADE;
-ALTER TABLE file ADD FOREIGN KEY (`user_id`) REFERENCES user(`id`) ON DELETE CASCADE;
-ALTER TABLE file ADD FOREIGN KEY (`company_id`) REFERENCES company(`id`) ON DELETE CASCADE;
+ALTER TABLE work_file ADD FOREIGN KEY (`stage_id`) REFERENCES stage(`id`) ON DELETE CASCADE;
+ALTER TABLE work_file ADD FOREIGN KEY (`user_id`) REFERENCES user(`id`) ON DELETE CASCADE;
+
+-- 创建项目需求文件表
+CREATE TABLE request_file(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  company_id INT,
+  pro_id INT,
+  request_file_name VARCHAR(255),
+  request_file_size INT,
+  request_file_uploader VARCHAR(255),
+  request_file_modifydate BIGINT,
+  request_file_url VARCHAR(255),
+  modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改的时间'
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+ALTER TABLE request_file ADD FOREIGN KEY (`company_id`) REFERENCES company(`id`) ON DELETE CASCADE;
+ALTER TABLE request_file ADD FOREIGN KEY (`pro_id`) REFERENCES project(`id`) ON DELETE CASCADE;
 
 -- 创建项目申请表
 CREATE TABLE apply(
   id INT PRIMARY KEY AUTO_INCREMENT,
+  applicant_id INT,
   resume_id INT,
   company_id INT,
   pro_id INT,
-  apply_state INT,
-  apply_mark INT,
+  apply_state INT DEFAULT 0 CHECK (apply_state IN (0,1,2,3)),
+  apply_mark INT DEFAULT 0 CHECK (apply_mark IN (0,1)),
   modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改的时间'
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+ALTER TABLE apply ADD FOREIGN KEY (`applicant_id`) REFERENCES user(`id`) ON DELETE CASCADE;
 ALTER TABLE apply ADD FOREIGN KEY (`resume_id`) REFERENCES resume(`id`) ON DELETE CASCADE;
 ALTER TABLE apply ADD FOREIGN KEY (`company_id`) REFERENCES company(`id`) ON DELETE CASCADE;
 ALTER TABLE apply ADD FOREIGN KEY (`pro_id`) REFERENCES project(`id`) ON DELETE CASCADE;
@@ -245,14 +262,16 @@ ALTER TABLE apply ADD FOREIGN KEY (`pro_id`) REFERENCES project(`id`) ON DELETE 
 -- 创建项目邀请表
 CREATE TABLE invite(
   id INT PRIMARY KEY AUTO_INCREMENT,
+  invitee_id INT,
   resume_id INT,
   company_id INT,
   pro_id INT,
-  invite_state INT,
-  invite_mark INT,
+  invite_state INT DEFAULT 0 CHECK (invite_state IN (0,1,2,3)),
+  invite_mark INT DEFAULT 0 CHECK (invite_mark IN (0,1)),
   modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改的时间'
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+ALTER TABLE invite ADD FOREIGN KEY (`invitee_id`) REFERENCES user(`id`) ON DELETE CASCADE;
 ALTER TABLE invite ADD FOREIGN KEY (`resume_id`) REFERENCES resume(`id`) ON DELETE CASCADE;
 ALTER TABLE invite ADD FOREIGN KEY (`company_id`) REFERENCES company(`id`) ON DELETE CASCADE;
 ALTER TABLE invite ADD FOREIGN KEY (`pro_id`) REFERENCES project(`id`) ON DELETE CASCADE;

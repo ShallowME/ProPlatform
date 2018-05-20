@@ -4,8 +4,8 @@
 
     <insert id="save">
         INSERT INTO
-        stage(pro_id, stage_num, stage_starttime, stage_endtime, stage_settletime, stage_speed)
-        VALUES(#{proId},#{stageNum},#{stageStartTime},#{stageEndTime},#{stageSettleTime},#{stageSpeed})
+        stage(pro_id, stage_num, stage_starttime, stage_endtime, stage_settlerequest)
+        VALUES(#{proId},#{stageNum},#{stageStartTime},#{stageEndTime},#{stageSettleRequest})
     </insert>
     <update id="update">
         UPDATE stage
@@ -13,17 +13,14 @@
             <if test="stageNum != null">
                 stage_num = #{stageNum, jdbcType=INTEGER},
             </if>
-            <if test="stageStarttime != null">
+            <if test="stageStartTime != null">
                 stage_starttime = #{stageStartTime},
             </if>
-            <if test="stageEndtime != null">
+            <if test="stageEndTime != null">
                 stage_endtime = #{stageEndTime},
             </if>
-            <if test="stageSettletime != null">
-                stage_settletime = #{stageSettleTime},
-            </if>
-            <if test="stageSpeed != null">
-                stage_speed = #{stageSpeed}
+            <if test="stageSettleRequest != null">
+                stage_settlerequest = #{stageSettleRequest},
             </if>
         </set>
         WHERE id = #{id}
@@ -42,14 +39,18 @@
         SELECT * FROM stage
         WHERE id = #{id}
     </select>
-    <resultMap id="stageMap" type="com.skyworth.model.Stage">
+    <select id="findStagesByProId" resultType="stagesMap">
+        SELECT * FROM stage
+        WHERE pro_id = #{projectId}
+        ORDER by stage_num
+    </select>
+    <resultMap id="stagesMap" type="com.skyworth.model.Stage">
         <id column="id" property="id"/>
         <result column="pro_id" property="proId"/>
         <result column="stage_num" property="stageNum"/>
         <result column="stage_starttime" property="stageStartTime"/>
         <result column="stage_endTime" property="stageEndTime"/>
-        <result column="stage_settleTime" property="stageSettleTime"/>
-        <result column="stage_speed" property="stageSpeed"/>
+        <result column="stage_settlerequest" property="stageSettleRequest"/>
         <result column="modification_time" property="modificationTime"/>
     </resultMap>
 

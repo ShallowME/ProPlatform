@@ -1,5 +1,6 @@
 package com.skyworth.service.companyService;
 
+import com.skyworth.dto.CompanyDto;
 import com.skyworth.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,11 +19,11 @@ public class CompanyServiceTest {
     private CompanyService service;
     @Test
     public void register() {
-        Company company = new Company();
+        CompanyDto company = new CompanyDto();
         company.setCompanyName("网易");
-        company.setCompanyPassword("wangyipwd");
+        company.setPassword("wangyipwd");
         boolean b = service.register(company);
-        System.out.println(b);
+
     }
 
     @Test
@@ -60,8 +61,8 @@ public class CompanyServiceTest {
 
     @Test
     public void updatePassword() {
-        boolean b = service.updatePassword("网易", "wypwd");
-        System.out.println(b);
+        service.updatePasswordByPhoneNum("123456789", "wypwd");
+
     }
 
     @Test
@@ -213,23 +214,23 @@ public class CompanyServiceTest {
 
     @Test
     public void saveFile() {
-        File file = new File();
-        file.setCompanyId(1);
-        file.setFileName("file3");
-        service.saveFile(file);
+        WorkFile workFile = new WorkFile();
+        workFile.setCompanyId(1);
+        workFile.setFileName("file3");
+        service.saveFile(workFile);
     }
 
     @Test
     public void updateFile() {
-        File file = new File();
-        file.setId(2);
-        file.setFileModifyDate(new Date().getTime());
-        file.setFileSize(10.0);
-        file.setFileUploader("user2");
-        file.setFileUrl("url");
-        file.setStageId(2);
-        file.setUserId(2);
-        service.updateFile(file);
+        WorkFile workFile = new WorkFile();
+        workFile.setId(2);
+        workFile.setFileModifyDate(new Date().getTime());
+        workFile.setFileSize(10.0);
+        workFile.setFileUploader("user2");
+        workFile.setFileUrl("url");
+        workFile.setStageId(2);
+        workFile.setUserId(2);
+        service.updateFile(workFile);
     }
 
     @Test
@@ -246,22 +247,22 @@ public class CompanyServiceTest {
 
     @Test
     public void getFileById() {
-        File file = service.getFileById(1);
-        System.out.println(file);
+        WorkFile workFile = service.getFileById(1);
+        System.out.println(workFile);
 
     }
 
     @Test
     public void getFilesByCompanyId() {
-        List<File> files = service.getFilesByCompanyId(1);
-        files.forEach(System.out::println);
+        List<WorkFile> workFiles = service.getFilesByCompanyId(1);
+        workFiles.forEach(System.out::println);
 
     }
 
     @Test
     public void getFilesByStageId() {
-        List<File> files = service.getFilesByStageId(1);
-        files.forEach(System.out::println);
+        List<WorkFile> workFiles = service.getFilesByStageId(1);
+        workFiles.forEach(System.out::println);
 
     }
 

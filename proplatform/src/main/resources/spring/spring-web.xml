@@ -18,7 +18,7 @@
     <!--配置SpringMVC-->
 
     <!--开启SpringMVC注解-->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven />
 
     <!--静态资源默认servlet配置-->
     <mvc:default-servlet-handler/>

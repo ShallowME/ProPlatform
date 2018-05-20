@@ -1,23 +1,17 @@
 package com.skyworth.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Setter
 @Getter
 @ToString
 @EqualsAndHashCode
-public class UserRole {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserRole implements Serializable{
+    private static final long serialVersionUID = 1L;
     private Integer userId;
     private Integer roleId;
-
-    public UserRole(Integer userId, Integer roleId) {
-        this.userId = userId;
-        this.roleId = roleId;
-    }
-
-    public UserRole() {
-    }
 }

@@ -4,12 +4,15 @@
     
     
     <insert id="save">
-        INSERT INTO invite (resume_id, company_id, pro_id, invite_state, invite_mark) 
-        VALUES (#{resumeId},#{companyId},#{proId},#{inviteState},#{inviteMark})
+        INSERT INTO invite (invitee_id, resume_id, company_id, pro_id, invite_state, invite_mark)
+        VALUES (#{invitee_id},#{resumeId},#{companyId},#{proId},#{inviteState},#{inviteMark})
     </insert>
     <update id="update">
         UPDATE invite
         <set>
+            <if test="inviteeId != null">
+                invitee_id = #{inviteeId},
+            </if>
             <if test="resumeId != null">
                 resume_id = #{resumeId},
             </if>
@@ -59,8 +62,13 @@
         SELECT * FROM invite
         WHERE pro_id = #{proId}
     </select>
+    <select id="completedInvitations" resultType="java.lang.Long">
+        SELECT count(id) FROM invite
+        WHERE invite_state = 3 AND resume_id = #{resumeId}
+    </select>
     <resultMap id="inviteMap" type="com.skyworth.model.Invite">
         <id column="id" property="id"/>
+        <result column="invitee_id" property="inviteeId"/>
         <result column="resume_id" property="resumeId"/>
         <result column="company_id" property="companyId"/>
         <result column="pro_id" property="proId"/>

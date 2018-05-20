@@ -4,8 +4,8 @@
 
     <insert id="save">
         INSERT INTO
-        target(stage_id, target_deadline, target_detail, target_remarks)
-        VALUES(#{stageId},#{targetDeadline},#{targetDetail},#{targetRemarks})
+        target(stage_id, target_deadline, target_detail, target_state)
+        VALUES(#{stageId},#{targetDeadline},#{targetDetail},#{targetState})
     </insert>
     <update id="update">
         UPDATE target
@@ -16,8 +16,8 @@
             <if test="targetDetail != null">
                 target_detail = #{targetDetail},
             </if>
-            <if test="targetRemarks != null">
-                target_remarks = #{targetRemarks}
+            <if test="targetState !+ null">
+                targetState = #{targetState}
             </if>
         </set>
         WHERE id = #{id}
@@ -39,17 +39,31 @@
         FROM target
         WHERE stage_id = #{stageId}
     </select>
+    <select id="allTargetsOneStage" resultType="java.lang.Integer">
+        SELECT count(id) FROM target
+        WHERE stage_id = #{stageId}
+    </select>
+    <select id="completedTargetsOneStage" resultType="java.lang.Integer">
+        SELECT count(id) FROM target
+        WHERE stage_id = #{stageId} AND target_stage = 1
+    </select>
     <select id="findById" resultType="com.skyworth.model.Target">
-        SELECT * FROM stage
+        SELECT * FROM target
         WHERE id = #{id}
     </select>
-
+    <update id="targetCompleted">
+        UPDATE target
+        <set>
+            target_state = 1
+        </set>
+        WHERE id = {targetId}
+    </update>
     <resultMap id="targetMap" type="com.skyworth.model.Target">
         <id column="id" property="id"/>
         <result column="stage_id" property="stageId"/>
         <result column="target_deadline" property="targetDeadline"/>
         <result column="target_detail" property="targetDetail"/>
-        <result column="target_remarks" property="targetRemarks"/>
+        <result column="target_state" property="targetState"/>
         <result column="modification_time" property="modificationTime"/>
     </resultMap>
 

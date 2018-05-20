@@ -49,6 +49,18 @@
         <property name="configLocation" value="classpath:spring/mybatis-config.xml"/>
         <property name="typeAliasesPackage" value="com.skyworth.model"/>
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                            reasonable=true
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <!-- 扫描DAO接口包，动态实现DAO接口，注入到spring容器中-->
@@ -58,6 +70,7 @@
         <!-- 给出需要扫描的Dao接口包 -->
         <property name="basePackage" value="com.skyworth.mapper"/>
     </bean>
+
 
     <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

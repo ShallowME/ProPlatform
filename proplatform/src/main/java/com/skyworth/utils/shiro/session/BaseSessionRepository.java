@@ -5,7 +5,9 @@ import com.skyworth.utils.SerializeUtil;
 import com.skyworth.utils.StringSerializer;
 import com.skyworth.utils.redis.BaseRedisManager;
 import com.skyworth.utils.redis.IRedisManager;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -97,6 +99,7 @@ public class BaseSessionRepository implements ShiroSessionRepository {
         } catch (Exception e) {
             logger.error("Serializer error"+e);
         }
+
         return null;
     }
 

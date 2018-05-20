@@ -18,5 +18,5 @@ public interface StageMapper {
 
     Stage findStageById(@Param("id") long id);
 
-
+    List<Stage> findStagesByProId(@Param("projectId") int projectId);
 }

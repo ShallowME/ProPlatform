@@ -20,4 +20,10 @@ public interface ApplyMapper {
 
     Apply findById(@Param("id") int id);
 
+    List<Apply> findByCompanyId(@Param("companyId") int companyId);
+
+    List<Apply> findByProjectId(@Param("projectId") int projectId);
+
+    Long completedApplications(@Param("resumeId") int resumeId);
+
 }

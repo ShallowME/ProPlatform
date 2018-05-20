@@ -18,5 +18,11 @@ public interface TargetMapper {
 
     Target findById(@Param("id") int id);
 
-    List<Target> findByStageId(@Param("stageId") long stageId);
+    List<Target> findByStageId(@Param("stageId") int stageId);
+
+    Integer allTargetsOneStage(@Param("stageId") int stageId);
+
+    Integer completedTargetsOneStage(@Param("stageId") int stageId);
+
+    void targetCompleted(@Param("targetId") int targetId);
 }

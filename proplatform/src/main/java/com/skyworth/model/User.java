@@ -1,11 +1,9 @@
 package com.skyworth.model;
 
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +15,10 @@ import java.util.List;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class User {
+@NoArgsConstructor
+@AllArgsConstructor
+public class User implements Serializable{
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private String userName;
     private String userPhoneNum;
@@ -25,18 +26,7 @@ public class User {
     private String userSalt;
     private Date modificationTime;
 
-    public User() {}
-
     public User(String userName, String userPhoneNum, String userPassword, String userSalt, Date modificationTime) {
-        this.userName = userName;
-        this.userPhoneNum = userPhoneNum;
-        this.userPassword = userPassword;
-        this.userSalt = userSalt;
-        this.modificationTime = modificationTime;
-    }
-
-    public User(Integer id, String userName, String userPhoneNum, String userPassword, String userSalt, Date modificationTime) {
-        this.id = id;
         this.userName = userName;
         this.userPhoneNum = userPhoneNum;
         this.userPassword = userPassword;

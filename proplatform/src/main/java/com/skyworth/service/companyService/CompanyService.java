@@ -1,12 +1,15 @@
 package com.skyworth.service.companyService;
 
+import com.skyworth.dto.*;
 import com.skyworth.model.*;
 
 import java.util.List;
 import java.util.Set;
 
 public interface CompanyService {
-    boolean register(Company company);
+    boolean register(CompanyDto companyDto);
+
+    Company findByCompanyId(int companyId);
 
     boolean checkCompanyExist(String companyName);
 
@@ -18,7 +21,9 @@ public interface CompanyService {
 
     Company getByPhoneNum(String phoneNum);
 
-    boolean updatePassword(String companyName, String newPassword);
+    void updatePasswordByPhoneNum(String companyPhoneNum, String newPassword);
+
+    void updatePasswordById(int companyId, String newPassword);
 
     boolean setInfo(CompanyInfo info);
 
@@ -28,17 +33,23 @@ public interface CompanyService {
 
     boolean removeInfo(int companyId);
 
-    boolean saveProject(Project project);
+    void saveProject(ProjectDto projectDto);
 
-    boolean updateProject(Project project);
+    void saveProject(Project project);
+
+    Project getProjectByProNameAndCompanyId(int proCompanyId, String projectName);
+
+    void updateProject(ProjectDto projectDto);
 
     boolean removeProject(int id);
 
-    List<Project> checkProjects(int companyId);
+    List<ProjectDto> checkProjects(int companyId);
 
-    boolean saveStage(Stage stage);
+    void saveStage(StageDto stageDto);
 
-    boolean updateStage(Stage stage);
+
+    void updateStage(StageDto stageDto);
+
 
     boolean removeStage(int id);
 
@@ -46,9 +57,13 @@ public interface CompanyService {
 
     Stage getStage(int id);
 
-    boolean saveTarget(Target target);
+    void saveTarget(TargetDto targetDto);
 
-    boolean updateTarget(Target target);
+    void saveTarget(Target target);
+
+    void updateTarget(TargetDto targetDto);
+
+    void updateTarget(Target target);
 
     boolean removeTarget(int targetId);
 
@@ -58,21 +73,21 @@ public interface CompanyService {
 
     Target getTargetById(int targetId);
 
-    boolean saveFile(File file);
+    Integer allTargetsOneStage(int stageId);
 
-    boolean updateFile(File file);
+    Integer completedTargetsOneStage(int stageId);
+
+    boolean saveFile(WorkFile workFile);
+
+    boolean updateFile(WorkFile workFile);
 
     boolean removeFile(int fileId);
 
     boolean removeFileByBatch(List<Integer> list);
 
-    File getFileById(int fileId);
+    WorkFile getFileById(int fileId);
 
-    List<File> getFilesByCompanyId(int companyId);
-
-    List<File> getFilesByStageId(int stageId);
-
-    boolean saveInvite(Invite invite);
+    boolean saveInvite(InviteDto inviteDto);
 
     boolean updateInvite(Invite invite);
 
@@ -101,4 +116,12 @@ public interface CompanyService {
     Set<Role> getAllRoles(int companyId);
 
     Set<Permission> getAllPermissions(int roleId);
+
+    List<ResumeDto> getApplicationsByProjectId(int projectId);
+
+    List<ResumeDto> getResumesByConditions(String resumeProfession, String resumeProfessionType, String resumeProvince);
+
+    List<StageDto> getStagesByProId(int projectId);
+
+    boolean targetCompleted(int targetId);
 }

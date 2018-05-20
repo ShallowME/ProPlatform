@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skyworth.mapper.RequestFileMapper">
+
+
+    <resultMap id="requestFileMap" type="com.skyworth.model.RequestFile">
+        <id column="id" property="id"/>
+        <result column="company_id" property="companyId"/>
+        <result column="proId" property="proId"/>
+        <result column="request_file_name" property="requestFileName"/>
+        <result column="request_file_size" property="requestFileSize"/>
+        <result column="request_file_uploader" property="requestFileUploader"/>
+        <result column="request_file_modifydate" property="requestFileModifyDate"/>
+        <result column="request_file_url" property="requestFileUrl"/>
+    </resultMap>
+</mapper>

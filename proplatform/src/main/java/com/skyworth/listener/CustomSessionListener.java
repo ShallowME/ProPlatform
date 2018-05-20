@@ -2,28 +2,35 @@ package com.skyworth.listener;
 
 import com.skyworth.model.Company;
 import com.skyworth.model.User;
-import com.skyworth.utils.shiro.session.BaseSessionRepository;
 import com.skyworth.utils.shiro.session.CompanySessionService;
 import com.skyworth.utils.shiro.session.ShiroSessionRepository;
 import com.skyworth.utils.shiro.session.UserSessionService;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.SessionListener;
-import org.apache.shiro.session.SessionListenerAdapter;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import javax.annotation.Resource;
+import javax.servlet.ServletContextEvent;
 
 /**
  * Created by Shallow on 2018/4/2.
  */
 
-public class CustomSessionListener implements SessionListener{
+public class CustomSessionListener implements SessionListener, ApplicationContextAware{
 
     public static final Logger logger = LoggerFactory.getLogger(CustomSessionListener.class);
 
-    private ShiroSessionRepository shiroSessionRepository = new BaseSessionRepository();
+    private static ApplicationContext context;
+
+    private ShiroSessionRepository shiroSessionRepository;
 
     @Override
     public void onStart(Session session) {
@@ -42,6 +49,8 @@ public class CustomSessionListener implements SessionListener{
             logger.error("Session can not be null.");
         }
 
+        shiroSessionRepository = (ShiroSessionRepository) context.getBean("baseShiroSessionRepository");
+
         Object obj = session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
         if (obj == null){
             throw new NullPointerException("Subject can not be null.");
@@ -57,5 +66,10 @@ public class CustomSessionListener implements SessionListener{
             }
         }
 
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        CustomSessionListener.context = applicationContext;
     }
 }

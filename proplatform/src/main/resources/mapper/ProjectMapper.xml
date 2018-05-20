@@ -3,14 +3,14 @@
 <mapper namespace="com.skyworth.mapper.ProjectMapper">
 
     <insert id="save">
-        INSERT INTO project(company_id,company_name, pro_name, pro_money, pro_type, pro_cycle, pro_pubtime, pro_description, pro_request,pro_state)
-        VALUES (#{companyId},#{companyName}, #{proName}, #{proMoney}, #{proType}, #{proCycle}, #{proPubTime}, #{proDescription}, #{proRequest},#{proState})
+        INSERT INTO project(company_id,company_name, pro_name, pro_money, pro_type, pro_cycle, pro_pubtime, pro_enrollment, pro_description, pro_request, pro_state)
+        VALUES (#{companyId},#{companyName}, #{proName}, #{proMoney}, #{proType}, #{proCycle}, #{proPubTime}, #{pro_enrollment}, #{proDescription}, #{proRequest},#{proState})
     </insert>
     <insert id="saveByBatch">
-        INSERT INTO project(company_id,company_name, pro_name, pro_money, pro_type, pro_cycle, pro_pubtime, pro_description, pro_request,pro_state)
+        INSERT INTO project(company_id,company_name, pro_name, pro_money, pro_type, pro_cycle, pro_pubtime, pro_enrollment, pro_description, pro_request,pro_state)
         VALUES
         <foreach collection="list" item="p" separator=",">
-            (#{p.companyId},#{p.companyName}, #{p.proName}, #{p.proMoney}, #{p.proType}, #{p.proCycle}, #{p.proPubTime}, #{p.proDescription}, #{p.proRequest},#{p.proState})
+            (#{p.companyId},#{p.companyName}, #{p.proName}, #{p.proMoney}, #{p.proType}, #{p.proCycle}, #{p.proPubTime}, #{pro_enrollment}, #{p.proDescription}, #{p.proRequest},#{p.proState})
         </foreach>
     </insert>
     <update id="update">
@@ -34,11 +34,14 @@
             <if test="proPubtime != null">
                 pro_pubtime = #{proPubTime,jdbcType=INTEGER},
             </if>
+            <if test="proEnrollment != null">
+                pro_enrollment = #{proEnrollment, jdbcType=INT},
+            </if>
             <if test="proDescription != null">
-                pro_description = #{proDescription},
+                pro_description = #{proDescription, jdbcType.TEXT},
             </if>
             <if test="proRequest != null">
-                pro_request = #{proRequest},
+                pro_request = #{proRequest, jdbcType.TEXT},
             </if>
             <if test="proState != null">
                 pro_state = #{proState,jdbcType=INTEGER}
@@ -58,40 +61,52 @@
         </foreach>
     </delete>
 
+    <select id="findByProId" resultType="com.skyworth.model.Project">
+        SELECT *
+        FROM project
+        WHERE id = #{proId}
+    </select>
     <select id="findByCompanyId" resultMap="projectMap">
         SELECT *
         FROM project
         WHERE company_id = #{companyId}
+        ORDER BY pro_state
     </select>
     <select id="findByProName" resultMap="projectMap">
         SELECT *
         FROM project
         WHERE pro_name LIKE CONCAT('%',#{proName},'%')
+        ORDER BY id DESC
     </select>
     <select id="findByCompanyName" resultMap="projectMap">
         SELECT *
         FROM project
         WHERE company_name LIKE CONCAT('%',#{companyName},'%')
+        ORDER BY id DESC
     </select>
     <select id="findByMoney" resultMap="projectMap">
         SELECT *
         FROM project
         WHERE pro_money BETWEEN #{minProMoney} AND #{maxProMoney}
+        ORDER BY id DESC
     </select>
     <select id="findByType" resultMap="projectMap">
         SELECT *
         FROM project
         WHERE pro_type = #{proType}
+        ORDER BY id DESC
     </select>
     <select id="findByCycle" resultMap="projectMap">
         SELECT *
         FROM project
         WHERE pro_cycle  BETWEEN #{minProCycle} AND #{maxProCycle}
+        ORDER BY id DESC
     </select>
     <select id="findByPubTime" resultMap="projectMap">
         SELECT *
         FROM project
         WHERE pro_pubtime BETWEEN #{minProPubTime} AND #{maxProPubTime}
+        ORDER BY id DESC
     </select>
     <select id="countByCompanyName" resultType="java.lang.Long">
         SELECT count(id) FROM project
@@ -105,6 +120,94 @@
         SELECT count(id) FROM project
         WHERE pro_type = #{proType}
     </select>
+    <select id="countByState" resultType="java.lang.Long">
+        SELECT count(id) FROM project
+        WHERE pro_state = #{proState}
+    </select>
+    <select id="orderByPubTime" resultType="projectMap">
+        SELECT *
+        FROM project
+        ORDER BY pro_pubtime DESC
+    </select>
+    <select id="orderByMoney" resultType="projectMap">
+        SELECT *
+        FROM project
+        ORDER BY pro_money DESC
+    </select>
+    <select id="projectsNoneApplicant" resultType="projectMap">
+        SELECT p.*
+        FROM project p
+        LEFT JOIN apply a
+        ON p.id = a.pro_id
+        WHERE a.pro_id = null
+        ORDER BY p.id DESC
+    </select>
+    <select id="findBySubscribe" resultType="projectMap">
+        SELECT p.*
+        FROM project p
+        INNER JOIN company c
+        ON p.company_id = c.id
+        INNER JOIN company_info ci
+        ON c.id = ci.company_id
+        WHERE ci.company_location = #{companyLocation} AND p.pro_type = #{proType} AND (p.pro_money BETWEEN #{minProMoney} AND #{maxProMoney})
+        ORDER BY p.id DESC
+    </select>
+
+    <select id="findByConditions" resultMap="projectMap">
+        SELECT * FROM project
+        <where>
+            <if test="proName != null">
+                proName LIKE CONCAT('%',#{companyName},'%')
+            </if>
+            <if test="proType != null">
+                AND pro_type = #{proType}
+            </if>
+            <if test="minProMoney != 0 and maxProMoney != 0">
+                AND (pro_money BETWEEN #{minProMoney} AND #{maxProMoney}
+            </if>
+            <if test="proCycle != 0">
+                AND (pro_cycle BETWEEN 0 AND #{maxProCycle}
+            </if>
+        </where>
+        AND pro_state IN (0,1)
+    </select>
+    <select id="findByProNameAndCompanyId" resultType="com.skyworth.model.Project">
+        SELECT * FROM project
+        WHERE company_id = #{proCompanyId} AND project_name = #{projectName}
+    </select>
+    <select id="projectsAppliedAndParticipated" resultType="projectMap">
+        SELECT p.* FROM project
+        INNER JOIN apply a
+        ON p.id = a.pro_id
+        WHERE a.applicant_id = #{user_id}
+        AND a.apply_state IN {0,2,3}
+        ORDER BY a.apply_state
+    </select>
+    <select id="projectsApplied" resultType="projectMap">
+        SELECT p.* FROM project
+        INNER JOIN apply a
+        ON p.id = a.pro_id
+        WHERE a.applicant_id = #{user_id}
+        AND a.apply_state = 0
+        ORDER BY p.id DESC
+    </select>
+    <select id="projectsParticipated" resultType="projectMap">
+        SELECT p.* FROM project
+        INNER JOIN apply a
+        ON p.id = a.pro_id
+        WHERE a.applicant_id = #{user_id}
+        AND a.apply_state IN {2,3}
+        ORDER BY a.apply_state
+    </select>
+    <select id="selectProjectEnrollment" resultType="java.lang.Integer">
+        select pro_enrollment FROM project
+        WHERE id = #{proId}
+    </select>
+    <insert id="insertProjectEnrollment">
+        INSERT INTO project(pro_enrollment)
+        VALUE (#{enrollment})
+        WHERE id = #{proId}
+    </insert>
 
     <resultMap id="projectMap" type="com.skyworth.model.Project">
         <id property="id" column="id"/>
@@ -112,9 +215,10 @@
         <result column="company_name" property="companyName"/>
         <result column="pro_name" property="proName"/>
         <result column="pro_money" property="proMoney"/>
-        <result column="pro_cycle" property="proCycle"/>
         <result column="pro_type" property="proType"/>
+        <result column="pro_cycle" property="proCycle"/>
         <result column="pro_pubtime" property="proPubTime"/>
+        <result column="pro_enrollment" property="proEnrollment"/>
         <result column="pro_description" property="proDescription"/>
         <result column="pro_request" property="proRequest"/>
         <result column="pro_state" property="proState"/>

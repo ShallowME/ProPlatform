@@ -14,6 +14,8 @@ public interface CompanyMapper {
 
     long countByName(@Param("companyName") String companyName);
 
+    Company fingByCompanyId(@Param("companyId") int companyId);
+
     Company findByCompanyName(@Param("companyName") String companyName);
 
     Company findByCompanyPhoneNum(@Param("phoneNum") String phoneNum);
@@ -22,8 +24,11 @@ public interface CompanyMapper {
 
     Company findByPhoneNumAndPassword(@Param("phoneNum") String phoneNum, @Param("password") String password);
 
-    void updatePassword(@Param("companyName") String companyName, @Param("newPassword") String newPassword);
+    void updateCompanyPasswordByPhoneNum(@Param("companyPhoneNum") String companyPhoneNum, @Param("newPassword") String newPassword);
+
+    void updateCompanyPasswordById(@Param("companyId") int companyId, @Param("newPassword") String newPassword);
 
     Set<Role> getAllRoles(@Param("companyId") int companyId);
 
+    Company findByProId(@Param("proId") int proId);
 }

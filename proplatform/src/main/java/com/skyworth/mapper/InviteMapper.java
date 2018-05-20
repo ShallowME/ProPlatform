@@ -25,4 +25,6 @@ public interface InviteMapper {
     List<Invite> findInvitesByResumeId(@Param("resumeId") int resumeId);
 
     List<Invite> findInvitesByProId(@Param("proId") int proId);
+
+    Long completedInvitations(@Param("resumeId") int resumeId);
 }

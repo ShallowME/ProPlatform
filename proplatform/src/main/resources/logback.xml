@@ -20,7 +20,7 @@
     </appender>
 
     <!-- 日志文件输出 -->
-    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="workFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>logs/proplatform.log</File><!-- 设置日志不超过${log.max.size}时的保存路径 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>logs/archive/proplatform_all_%d{yyyy-MM-dd}.%i.log.zip

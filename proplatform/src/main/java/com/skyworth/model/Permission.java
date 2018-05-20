@@ -1,33 +1,25 @@
 package com.skyworth.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Setter
 @Getter
 @ToString
 @EqualsAndHashCode
-public class Permission {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Permission implements Serializable{
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private String perName;
     private String perDescription;
     private Date modificationTime;
 
-    public Permission() {}
-
     public Permission(String perName, String perDescription) {
         this.perName = perName;
         this.perDescription = perDescription;
-    }
-
-    public Permission(Integer id, String perName, String perDescription, Date modificationTime) {
-        this.id = id;
-        this.perName = perName;
-        this.perDescription = perDescription;
-        this.modificationTime = modificationTime;
     }
 }

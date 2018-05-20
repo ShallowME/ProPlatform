@@ -20,11 +20,34 @@
         INSERT INTO company (company_name, company_phone_num, company_password)
         VALUES (#{companyName},#{companyPhoneNum}, #{companyPassword} )
     </insert>
-    <update id="updatePassword">
+    <update id="updateCompanyPasswordByPhoneNum">
+        UPDATE company
+        <set>
+            <if test="newPassword != null">
+                company_password = #{newPassword, jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE company_phone_num = #{companyPhoneName, jdbcType=VARCHAR}
+    </update>
+    <update id="updateCompanyPasswordById">
+        UPDATE company
+        <set>
+            <if test="newPassword != null">
+                company_password = #{newPassword, jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE id = #{companyId, jdbcType=INT}
+    </update>
+    <update id="updatePasswordByPhoneNum">
         UPDATE company
         SET company_password = #{newPassword}
-        WHERE company_name = #{companyName}
+        WHERE company_phone_num = #{companyPhoneNum}
     </update>
+    <select id="findByCompanyId" resultType="com.skyworth.model.Company">
+        SELECT *
+        FROM company
+        WHERE id = #{companyId}
+    </select>
     <select id="findByCompanyName" resultType="com.skyworth.model.Company">
         SELECT *
         FROM company

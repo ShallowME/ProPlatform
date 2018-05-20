@@ -1,10 +1,8 @@
 package com.skyworth.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 /**
  * @author li
@@ -13,7 +11,10 @@ import java.util.Date;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Project {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Project implements Serializable{
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private Integer companyId;
     private String companyName;
@@ -22,27 +23,11 @@ public class Project {
     private String proType;
     private Integer proCycle;
     private long proPubTime;
+    private int proEnrollment;
     private String proDescription;
     private String proRequest;
     private Integer proState;
     private Date modificationTime;
-
-    public Project() {}
-
-    public Project(Integer id, Integer companyId, String companyName, String proName, Double proMoney, String proType, Integer proCycle, long proPubTime, String proDescription, String proRequest, Integer proState, Date modificationTime) {
-        this.id = id;
-        this.companyId = companyId;
-        this.companyName = companyName;
-        this.proName = proName;
-        this.proMoney = proMoney;
-        this.proType = proType;
-        this.proCycle = proCycle;
-        this.proPubTime = proPubTime;
-        this.proDescription = proDescription;
-        this.proRequest = proRequest;
-        this.proState = proState;
-        this.modificationTime = modificationTime;
-    }
 
     public Project(String companyName, String proName) {
         this.companyName = companyName;

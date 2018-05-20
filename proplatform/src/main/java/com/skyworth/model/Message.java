@@ -1,16 +1,17 @@
 package com.skyworth.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
-public class Message {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Message implements Serializable{
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private Integer userId;
     private Integer companyId;
@@ -18,15 +19,4 @@ public class Message {
     private Integer mesState;
     private Date modificationTime;
 
-    public Message() {
-    }
-
-    public Message(Integer id, Integer userId, Integer companyId, String mesContent, Integer mesState, Date modificationTime) {
-        this.id = id;
-        this.userId = userId;
-        this.companyId = companyId;
-        this.mesContent = mesContent;
-        this.mesState = mesState;
-        this.modificationTime = modificationTime;
-    }
 }

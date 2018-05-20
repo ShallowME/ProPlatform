@@ -13,13 +13,13 @@ public class PasswordEncrypt {
 
     private static RandomNumberGenerator generator = new SecureRandomNumberGenerator();
 
-    private String algorithName = "MD5";
+    private static final String algorithmName = "MD5";
 
-    private final int hashIterations = 2;
+    private static final int hashIterations = 2;
 
-    public User encrypt(User userLogin) {
+    public static User encrypt(User userLogin) {
         userLogin.setUserSalt(generator.nextBytes().toHex());
-        String newPassword = new SimpleHash(algorithName, userLogin.getUserPassword(), ByteSource.Util.bytes(userLogin.getUserSalt()), hashIterations).toHex();
+        String newPassword = new SimpleHash(algorithmName, userLogin.getUserPassword(), ByteSource.Util.bytes(userLogin.getUserSalt()), hashIterations).toHex();
         userLogin.setUserPassword(newPassword);
         return userLogin;
     }

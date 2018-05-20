@@ -4,8 +4,8 @@
 
 
     <insert id="save">
-        INSERT INTO company_info(company_id,company_logo,company_realname,company_major,company_description)
-        VALUES (#{companyId},#{companyLogo},#{companyRealname},#{companyMajor},#{companyDescription})
+        INSERT INTO company_info(company_id,company_logo,company_realname,company_location,company_major,company_description)
+        VALUES (#{companyId},#{companyLogo},#{companyRealname},#{companyLocation},#{companyMajor},#{companyDescription})
     </insert>
     <update id="updateInfo">
         update company_info
@@ -15,6 +15,9 @@
             </if>
             <if test="companyRealname != null">
                 company_realname = #{companyRealname,jdbcType=VARCHAR},
+            </if>
+            <if test="companyLocation != null">
+                company_location = #{companyLocation,jdbcType=VARCHAR},
             </if>
             <if test="companyMajor != null">
                 company_major = #{companyMajor,jdbcType=VARCHAR},

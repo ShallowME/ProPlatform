@@ -1,6 +1,6 @@
 ---    
 title: 2018-1-20    项目发布平台
-tags: 初版
+tags: version 2.0
 grammar_cjkRuby: true
 ---
 =========================================
@@ -12,16 +12,17 @@ grammar_cjkRuby: true
 #### 获取手机验证码
 
 * router
-  * ==GET==  /identity
+  * ==GET==  /identity/{phoneNum}
 
 * request
-```
+```json
+	"phoneNum":String
 ```
 
 * response
 ```json
 [{
-    "idCode": String,
+    "idCode": String
 },
 ...]
 ```
@@ -29,7 +30,7 @@ grammar_cjkRuby: true
 #### 注册状态判断
 
 * router
-  * ==GET==  /user/register/{userName}/{phoneNum}/{password}/{rePassword}/{idCode}
+  * ==POST==  /user/register
 
 * request
 ```json
@@ -46,7 +47,8 @@ grammar_cjkRuby: true
 * response
 ```json
 [{
-    "isSucessful": Boolean
+    "isSucessful": Boolean，
+	"errorMessage":String
 },
 ...]
 ```
@@ -55,14 +57,39 @@ grammar_cjkRuby: true
 
 
 * router
-  * ==GET==/user/login/{identity}/{password}/{isRemember}
+  * ==GET==/user/login/{identity}/{password}
 
 * request
 ``` json
 	[{
     "identity": String,
-	"password":String,
-	"isRemember":Boolean
+	"password":String
+},
+...] 
+```
+
+* response
+``` json
+[{
+   "isSuccessful":Boolean,
+   "errorMessage":String,
+   "userId":Number,
+   "userName":String
+},
+...] 
+```
+
+### 1.3 密码管理
+
+#### 验证码确认
+
+* router
+	* ==GET==/user/idCodeConfirm/{idCode}
+
+* request
+``` json
+[{
+	"idCode":String
 },
 ...] 
 ```
@@ -75,43 +102,16 @@ grammar_cjkRuby: true
 ...] 
 ```
 
-### 1.3 密码管理
-
-#### 忘记密码
+#### 忘记密码修改
 
 * router
-	* ==POST==/user/forget/{phoneNum}
+	* ==POST==/user/forget
 
 * request
 ``` json
 [{
-   "phoneNum": String,
+	"phoneNum":String,
 	"password":String,
-	"rePassword":String,
-	"idCode":String
-},
-...] 
-```
-
-* response
-``` json
-[{
-   **Status(http状态码)
-},
-...] 
-```
-
-#### 修改密码
-
-* router
-	* ==POST==/user/alter/{userId}
-
-* request
-``` json
-[{
-	{userId}:Number,
-	"oldPassword":String,
-	"newPassword":String,
 	"rePassword":String
 },
 ...] 
@@ -125,12 +125,37 @@ grammar_cjkRuby: true
 ...] 
 ```
 
+#### 修改密码
+
+* router
+	* ==POST==/user/alter/{userId}
+
+* request
+``` json
+[{
+	"userId":Number,
+	"oldPassword":String,
+	"newPassword":String,
+	"rePassword":String
+},
+...] 
+```
+
+* response
+``` json
+[{
+   "isSuccessful":Boolean,
+   "message":String
+},
+...] 
+```
+
 ### 1.4 个人资料管理
 
 #### 上传头像
 
 * router
-	* ==GET== /user/upload/{userName}
+	* ==POST== /user/upload/{userName}
 
 * request
 ``` json
@@ -168,15 +193,13 @@ grammar_cjkRuby: true
 [{
 	"userId":Number,
 	"imgUrl":String,
-   "realName":String,
-   "userSex":String,
-   "userProvince":String,
-   "userCity":String,
-   "userSchool":String,
-   "userProfession":String,
-   "userStation":String,
-   "userMajor":String,
-   "userMailbox":String,
+    "realName":String,
+   	"userSex":String,
+   	"userProvince":String,
+    "userCity":String,
+    "userSchool":String,
+    "userMajor":String,
+    "userMailbox":String,
     "phoneNum":String
 },
 ...] 
@@ -190,16 +213,14 @@ grammar_cjkRuby: true
 * request
 ``` json
  [{
- 	"userName":String,
+	"userName":String,
  	"realName":String,
-   "userSex":String,
-   "userProvince":String,
-   "userCity":String,
-   "userSchool":String,
-   "userProfession":String,
-   "userStation":String,
-   "userMajor":String,
-   "userMailbox":String
+    "userSex":String,
+    "userProvince":String,
+	"userCity":String,
+	"userSchool":String,
+	"userMajor":String,
+	"userMailbox":String
 },
 ...] 
 ```
@@ -214,8 +235,6 @@ grammar_cjkRuby: true
    "userProvince":String,
    "userCity":String,
    "userSchool":String,
-   "userProfession":String,
-   "userStation":String,
    "userMajor":String,
    "userMailbox":String
 },
@@ -289,16 +308,16 @@ grammar_cjkRuby: true
 * response
 ``` json
 [{
-	"imgUrl":Boolean,
+	"imgUrl":String,
 	"resumeRealName":String,
 	"resumeSex":String,
-	"rusumeBirth":UNIX,
+	"rusumeBirth":String,
 	"resumeEducation":String,
 	"resumeSchool":String,
 	"resumeMajor":String,
-	"resumeMajor":String,
+	"resumeMailbox":String,
 	"resumePhoneNum":String,
-	"resumeExperience":String,
+	"resumeSchExperience":String,
 	"resumeWorkExperience":String
 },	
 ...]
@@ -312,16 +331,16 @@ grammar_cjkRuby: true
 * request
 ``` json
 [{
-	"userName":String,
+	"imgUrl":String,
 	"resumeRealName":String,
 	"resumeSex":String,
-	"resumeBirth":UNIX,
+	"rusumeBirth":String,
 	"resumeEducation":String,
 	"resumeSchool":String,
 	"resumeMajor":String,
-	"resumeMajor":String,
+	"resumeMailbox":String,
 	"resumePhoneNum":String,
-	"resumeExperience":String,
+	"resumeSchExperience":String,
 	"resumeWorkExperience":String
 },	
 ...]
@@ -334,13 +353,13 @@ grammar_cjkRuby: true
 	"imgUrl":String,
 	"resumeRealName":String,
 	"resumeSex":String,
-	"rusumeBirth":UNIX,
+	"rusumeBirth":String,
 	"resumeEducation":String,
 	"resumeSchool":String,
 	"resumeMajor":String,
-	"resumeMajor":String,
+	"resumeMailbox":String,
 	"resumePhoneNum":String,
-	"resumeExperience":String,
+	"resumeSchExperience":String,
 	"resumeWorkExperience":String
 },	
 ...]
@@ -385,9 +404,10 @@ grammar_cjkRuby: true
 	"patentName":String,
 	"patentOwner":String,
 	"patentNum":String,
-	"patentApplyNum":String,
-	"patentAuthTime":String,
-	"patentCertiNum":String,
+	"patentApplyDate":String,
+	"patentAuthDate":String,
+	"patentCertiCode":String,
+	"patentContact":String,
 	"patentState":Number
 },
 ...]
@@ -421,9 +441,10 @@ grammar_cjkRuby: true
 	"patentName":String,
 	"patentOwner":String,
 	"patentNum":String,
-	"patentApplyNum":String,
+	"patentApplyTime":String,
 	"patentAuthTime":String,
-	"patentCertiNum":String,
+	"patentCertiCode":String,
+	"patentContact":String,
 	"patentState":Number
 },
 ...]
@@ -484,16 +505,16 @@ grammar_cjkRuby: true
 #### 新增订阅信息
 
 * router
-	* ==POST== /user/book/alter/{userName}
+	* ==POST== /user/subscribe/alter/{userName}
 
 * request
 ``` json
 [{
 	"userName":String,
-	"bookSpot":String,
-	"bookType":String,
-	"bookMinPay":Number,
-	"bookMaxPay":Number
+	"subscribeSpot":String,
+	"subscribeType":String,
+	"subscribeMinPay":Number,
+	"subscribeMaxPay":Number
 },	
 ...]
 ```
@@ -509,13 +530,13 @@ grammar_cjkRuby: true
 #### 删除订阅
 
 * router
-	* ==GET== /user/book/delete/{userName}/{bookId}
+	* ==GET== /user/subscribe/delete/{userName}/{subscribeId}
 
 * request
 ``` json
 [{
 	"userName":String,
-	"bookId":Number
+	"subscribeId":Number
 },	
 ...]
 ```
@@ -531,7 +552,7 @@ grammar_cjkRuby: true
 #### 订阅信息显示
 
 * router
-	* ==GET== /user/book/show/{userName}
+	* ==GET== /user/subscribe/show/{userName}
 
 * request
 ``` json
@@ -544,10 +565,10 @@ grammar_cjkRuby: true
 * response
 ``` json
 [{
-	"bookSpot":String,
-	"bookType":String,
-	"bookMinPay":Number,
-	"bookMaxPay":Number
+	"subscribeSpot":String,
+	"subscribeType":String,
+	"subscribeMinPay":Number,
+	"subscribeMaxPay":Number
 },	
 ...]
 ```
@@ -560,7 +581,7 @@ grammar_cjkRuby: true
 #### 项目名称模糊搜索
 
 * router
-	* ==GET== /project/search/{proName}/{curPage}
+	* ==GET== /project/search/name/{proName}/{curPage}
 
 * request
 ``` json
@@ -575,7 +596,7 @@ grammar_cjkRuby: true
 * response
 ``` json
 [{
-	"proId":Nnmber,
+	"proId":Number,
 	"proName":String,
 	"proMoney":Number,
 	"proType":String,
@@ -703,16 +724,18 @@ grammar_cjkRuby: true
 #### 猜你喜欢
 
 * router
-	* ==GET== /project/index/like
+	* ==GET== /project/index/like/{userId}/{curPage}
 
 * request
 ``` json
+	"userId":Number,
+	"curPage":Number
 ```
 
 * response
 ``` json
 [{
-	"proId":Nnmber,
+	"proId":Number,
 	"proName":String,
 	"proMoney":Number,
 	"proType":String,
@@ -726,10 +749,11 @@ grammar_cjkRuby: true
 #### 最新项目
 
 * router
-	* ==GET== /project/index/new
+	* ==GET== /project/index/new/{curPage}
 
 * request
 ``` json
+	"curPage":Number
 ```
 
 * response
@@ -791,7 +815,6 @@ grammar_cjkRuby: true
 	"companyName":String,
 	"proCycle":Number,
 	"pubTime":UNIX,
-	"enrollment":Number,
 	"proDescription":String,
 	"proRequest":String
 },
@@ -821,9 +844,10 @@ grammar_cjkRuby: true
 ```
 
 ### 2.4 项目发布
+#### 2.4.1 项目暂时保存
 
 * router 
-	* ==POST==   /project/company/publish/{proCompanyId}
+	* ==POST==   /project/company/save/{proCompanyId}
 
 * request 
 ``` json
@@ -846,6 +870,27 @@ grammar_cjkRuby: true
 },
 ...]
 ```
+
+#### 2.4.1 项目确定发布
+* router 
+	* ==GET==   /project/company/release/{proCompanyId}
+
+* request 
+``` json
+[{
+	"proCompanyId":Number
+},
+...]
+```
+
+* response
+``` json
+[{
+	"isSuccessful":Boolean
+},
+...]
+```
+
 
 ### 2.5 查看项目申请
 
@@ -1061,8 +1106,10 @@ grammar_cjkRuby: true
 
 #### 文件信息显示
 
+**a. 用户上传文件信息显示**
+
 * router
-	* ==GET== /project/file/{proId}/{stageId}
+	* ==GET== /project/file/user/{proId}/{stageId}
 
 * request
 ``` json
@@ -1084,6 +1131,33 @@ grammar_cjkRuby: true
 },	
 ...]
 ```
+
+**b. 所有上传文件信息显示**
+
+* router
+	* ==GET== /project/file/all/{proId}/{stageId}
+
+* request
+``` json
+[{
+	"proId":Number,
+	"stageId":Number
+},	
+...]
+```
+
+* response
+``` json
+[{
+	"fileId":Number,
+	"fileName":String,
+	"fileSize":Number,
+	"fileUploader":String,
+	"fileModifyTime":UNIX
+},	
+...]
+```
+
 
 #### 文件下载
 
@@ -1165,13 +1239,80 @@ grammar_cjkRuby: true
 ...]
 ```
 
+### 2.8 项目中心
+
+#### 个人简历状态
+ 
+* router
+	*  ==GET== /project/user/checkout/{userId}/{stateCode}
+
+* request
+```json
+[{
+	"userId":Number,
+	"stateCode":Number
+},
+...]
+```
+
+* response
+```json
+[{
+	... List
+    "proId":Number,
+	"proName":String,
+	"proMoney":Number,
+	"proType":String,
+	"companyName":String,
+	"proCycle":Number,
+	"pubTime":UNIX,
+	"proDescription":String,
+	"proRequest":String,
+	"proState":Number
+},
+...]
+```
+
+#### 企业项目中心
+ 
+* router
+	*  ==GET== /project/user/checkout/{companyId}/{stateCode}
+
+* request
+```json
+[{
+	"companyId":Number,
+	"stateCode":Number
+},
+...]
+```
+
+* response
+```json
+[{
+	... List
+    "proId":Nnmber,
+	"proName":String,
+	"proMoney":Number,
+	"proType":String,
+	"companyName":String,
+	"proCycle":Number,
+	"pubTime":UNIX,
+	"proDescription":String,
+	"proRequest":String,
+	"proState":Number
+},
+...]
+```
+
+
 
 ## 企业信息管理
 
 ### 3.1 注册状态判断
 
 * router
-  * ==GET==  /company/register/{companyName}/{phoneNum}/{password}/{rePassword}/{idCode}
+  * ==GET==  /company/register
 
 * request
 ```json
@@ -1214,23 +1355,46 @@ grammar_cjkRuby: true
 * response 
 ``` json
 [{
-	"isSuccessful":Boolean
+	"isSuccessful":Boolean,
+	"errorMessage":String,
+   "companyId":Number,
+   "companyName":String
 },
 ...]	
 ```
 
-#### 忘记密码
+#### 验证码确认
 
 * router
-	* ==POST==  /company/forget/{phoneNum}
+	* ==GET==/company/idCodeConfirm/{idCode}
 
 * request
 ``` json
 [{
-	"phoneNum":String,
-	"password":String,
-	"rePassword":String,
 	"idCode":String
+},
+...] 
+```
+
+* response
+``` json
+[{
+   **Status(http状态码)
+},
+...] 
+```
+
+#### 忘记密码修改
+
+* router
+	* ==POST==  /company/forget
+
+* request
+``` json
+[{
+	"phonrNum":String,
+	"password":String,
+	"rePassword":String
 },
 ...]
 ```
@@ -1310,7 +1474,7 @@ grammar_cjkRuby: true
 	"imgUrl":String,
 	"companyRealName":String,
 	"companyProCount":Number,
-	"companyMajor":String,
+	"companyAddress":Stirng,
 	"companyDescription":String
 },
 ...]
@@ -1418,7 +1582,7 @@ grammar_cjkRuby: true
 	"patentNum":String,
 	"patentApplyNum":String,
 	"patentAuthTime":String,
-	"patentCertiNum":String,
+	"patentCertiCode":String,
 	"patentState":Number
 },
 ...]
@@ -1445,7 +1609,7 @@ grammar_cjkRuby: true
 	"patentNum":String,
 	"patentApplyNum":String,
 	"patentAuthTime":String,
-	"patentCertiNum":String,
+	"patentCertiCode":String,
 	"patentState":Number
 },
 ...]
@@ -1455,12 +1619,13 @@ grammar_cjkRuby: true
 
 #### 人才行业搜索
 * router
-	* ==GET== /company/resume/search/profession/{proType}
+	* ==GET== /company/resume/search/profession/{majorType}/{curPage}
 
 * request
 ``` json
 [{
-	"proType":String
+	"majorType":Number,
+	"curPage":Number
 },
 ...]
 ```
@@ -1486,12 +1651,13 @@ grammar_cjkRuby: true
 
 #### 人才地点搜索
 * router
-	* ==GET== /company/resume/search/province/{province}
+	* ==GET== /company/resume/search/province/{province}/{curPage}
 
 * request
 ``` json
 [{
-	"province":String
+	"province":String,
+	"curPage":Number
 },
 ...]
 ```

@@ -1,22 +1,18 @@
 package com.skyworth.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-public class CompanyRole {
+@NoArgsConstructor
+@AllArgsConstructor
+public class CompanyRole implements Serializable{
+    private static final long serialVersionUID = 1L;
     private Integer companyId;
     private Integer roleId;
 
-    public CompanyRole() {}
-
-    public CompanyRole(Integer companyId, Integer roleId) {
-        this.companyId = companyId;
-        this.roleId = roleId;
-    }
 }

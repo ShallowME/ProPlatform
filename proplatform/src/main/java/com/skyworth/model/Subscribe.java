@@ -1,16 +1,17 @@
 package com.skyworth.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Subscribe {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Subscribe implements Serializable{
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private Integer userId;
     private String subSpot;
@@ -18,16 +19,4 @@ public class Subscribe {
     private Integer subMaxPay;
     private Integer subMinPay;
     private Date modificationTime;
-
-    public Subscribe() {}
-
-    public Subscribe(Integer id, Integer userId, String subSpot, String subType, Integer subMaxPay, Integer subMinPay, Date modificationTime) {
-        this.id = id;
-        this.userId = userId;
-        this.subSpot = subSpot;
-        this.subType = subType;
-        this.subMaxPay = subMaxPay;
-        this.subMinPay = subMinPay;
-        this.modificationTime = modificationTime;
-    }
 }

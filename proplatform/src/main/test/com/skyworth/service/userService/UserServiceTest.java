@@ -1,5 +1,7 @@
 package com.skyworth.service.userService;
 
+import com.skyworth.dto.ApplyDto;
+import com.skyworth.dto.UserDto;
 import com.skyworth.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +20,10 @@ public class UserServiceTest {
     private UserService service;
     @Test
     public void register() {
-        User user = new User();
+        UserDto user = new UserDto();
         user.setUserName("z6");
-        user.setUserPassword("z6pwd");
-        user.setUserPhoneNum("111");
+        user.setPassword("z6pwd");
+        user.setPhoneNum("111");
         service.register(user);
     }
 
@@ -56,8 +58,7 @@ public class UserServiceTest {
 
     @Test
     public void updatePassword() {
-        boolean b = service.updatePassword("wwy", "wwypwd");
-        System.out.println(b);
+        service.updatePasswordByPhoneNum("123456", "wwypwd");
     }
 
     @Test
@@ -100,7 +101,7 @@ public class UserServiceTest {
     public void setResume() {
         Resume resume = new Resume();
         resume.setUserId(3);
-        resume.setResumePhonenum("222");
+        resume.setResumePhoneNum("222");
         resume.setResumeRealname("user2");
         service.setResume(resume);
     }
@@ -208,35 +209,35 @@ public class UserServiceTest {
 
     @Test
     public void saveFile() {
-        File file = new File();
-        file.setUserId(2);
-        file.setFileName("file2");
-        service.saveFile(file);
+        WorkFile workFile = new WorkFile();
+        workFile.setUserId(2);
+        workFile.setWorkFileName("file2");
+        service.saveFile(workFile);
     }
 
     @Test
     public void updateFile() {
-        File file = new File();
-        file.setId(5);
-        file.setFileModifyDate(new Date().getTime());
-        file.setFileSize(10.0);
-        file.setFileUploader("user1");
-        file.setFileUrl("url1");
-        file.setStageId(1);
-        file.setUserId(1);
-        service.updateFile(file);
+        WorkFile workFile = new WorkFile();
+        workFile.setId(5);
+        workFile.setWorkFileModifyDate(new Date().getTime());
+        workFile.setWorkFileSize(10.0);
+        workFile.setWorkFileUploader("user1");
+        workFile.setWorkFileUrl("url1");
+        workFile.setStageId(1);
+        workFile.setUserId(1);
+        service.updateFile(workFile);
     }
 
     @Test
     public void getFileById() {
-        File file = service.getFileById(5);
-        System.out.println(file);
+        WorkFile workFile = service.getFileById(5);
+        System.out.println(workFile);
     }
 
     @Test
     public void getFilesByUserId() {
-        List<File> files = service.getFilesByUserId(1);
-        files.forEach(System.out::println);
+        List<WorkFile> workFiles = service.getFilesByUserId(1);
+        workFiles.forEach(System.out::println);
     }
 
     @Test
@@ -251,7 +252,7 @@ public class UserServiceTest {
 
     @Test
     public void saveApply() {
-        Apply apply = new Apply();
+        ApplyDto apply = new ApplyDto();
         apply.setApplicantId(1);
         apply.setProId(5);
         apply.setResumeId(1);

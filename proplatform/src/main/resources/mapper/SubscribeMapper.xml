@@ -47,7 +47,7 @@
     <select id="findSubscribeByUserId" resultMap="subscribeMap">
         SELECT *
         FROM subscribe
-        WHERE user_id = #{userId};
+        WHERE user_id = #{userId}
     </select>
     <select id="findByUserIdAndType" resultMap="subscribeMap">
         SELECT *

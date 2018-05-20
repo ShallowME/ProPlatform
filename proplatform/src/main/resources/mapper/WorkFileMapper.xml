@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skyworth.mapper.WorkFileMapper">
+
+    <insert id="save">
+        INSERT INTO
+        work_file(target_id, user_id, work_file_name, work_file_size, work_file_uploader,work_file_modifydate,work_file_url)
+        VALUES(#{targetId},#{userId},#{workFileName},#{workFileSize},#{workFileUploader},#{workFileModifyDate},#{workFileUrl})
+    </insert>
+
+    <update id="updateByUser">
+        UPDATE work_file
+        <set>
+            <if test="targetId != null">
+                target_id = #{targetId, jdbcType=INTEGER},
+            </if>
+            <if test="workFileName != null">
+                work_file_name = #{workFileName, jdbcType=VARCHAR},
+            </if>
+            <if test="workFileSize != null">
+                file_size = #{workFileSize},
+            </if>
+            <if test="workFileUploader != null">
+                work_file_Uploader = #{workFileUploader, jdbcType=VARCHAR},
+            </if>
+            <if test="workFileModifydate != null">
+                file_modifyDate = #{workFileModifyDate},
+            </if>
+            <if test="workFileUrl != null">
+                work_file_url = #{workFileUrl, jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE user_id = #{userId}
+    </update>
+
+    <update id="update">
+        UPDATE work_file
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="targetId != null">
+                target_id = #{targetId,jdbcType=INTEGER},
+            </if>
+            <if test="workFileName != null">
+                work_file_name = #{workFileName, jdbcType=VARCHAR},
+            </if>
+            <if test="workFileSize != null">
+                work_file_size = #{workFileSize},
+            </if>
+            <if test="workFileUploader != null">
+                work_file_Uploader = #{workFileUploader, jdbcType=VARCHAR},
+            </if>
+            <if test="workFileModifyDate != null">
+                work_file_modifydate = #{workFileModifyDate},
+            </if>
+            <if test="workFileUrl != null">
+                work_file_url = #{workFileUrl, jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteByUser">
+        DELETE FROM work_file
+        WHERE user_id = #{userId}
+    </delete>
+
+    <delete id="deleteByCompany">
+        DELETE FROM work_file
+        WHERE company_id = #{companyId}
+    </delete>
+    <delete id="delete">
+        DELETE FROM work_file
+        WHERE id = #{id}
+    </delete>
+    <delete id="deleteByBatch">
+        DELETE FROM work_file
+        WHERE id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="findFileByUserId" resultType="com.skyworth.model.WorkFile">
+        SELECT *
+        FROM work_file
+        WHERE user_id = #{userId}
+    </select>
+    <select id="findById" resultType="com.skyworth.model.WorkFile">
+        SELECT *
+        FROM work_file
+        WHERE id = #{id}
+    </select>
+</mapper>

@@ -1,10 +1,8 @@
 package com.skyworth.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -12,16 +10,13 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class Role {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Role implements Serializable{
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private String roleName;
     private String roleDescription;
     private Date modificationTime;
 
-    public Role() {}
-
-    public Role(String roleName, String roleDescription) {
-        this.roleName = roleName;
-        this.roleDescription = roleDescription;
-    }
 }
