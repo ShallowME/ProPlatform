@@ -576,18 +576,21 @@ grammar_cjkRuby: true
 
 ## 项目信息
 
-### 2.1 项目搜索
+### 2.1 项目查找
 
-#### 项目名称模糊搜索
+#### 项目条件搜索
 
 * router
-	* ==GET== /project/search/name/{proName}/{curPage}
+		* ==GET== /project/search/{proName}/{typeCode}/{minProMoney}/{maxProMoney}/{maxProCycle}
 
 * request
 ``` json
 [{
 	"proName":String,
-	"curPage":Number
+	"typeCode":Number,
+	"minProMoney":Number,
+	"maxProMoney":Number,
+	"maxProCycle":Number
 },
 ...]
 ```
@@ -597,139 +600,30 @@ grammar_cjkRuby: true
 ``` json
 [{
 	"proId":Number,
+	"companyId"Number,
+	"companyName":String,
 	"proName":String,
 	"proMoney":Number,
 	"proType":String,
 	"proCycle":Number,
-	"pubTime":UNIX,
-	"enrollment":Number
+	"proPubTime":UNIX,
+	"proEnrollment":Number,
+	"proDescription":Number,
+	"proRequest":Number,
+	"proState":Number
 },
 ...]
 ```
 
-#### 项目名称模糊搜索总页数
-
-* router
-	* ==GET== /project/pagnation/{proName}
-
-* request
-``` json
-[{
-	"proName":String
-},
-...] 
-```
-* response
-``` json
-[{
-	"totalPages":Number
-},
-...]
-```
-
-
-#### 分类搜索
-	  
-* router
-	* ==GET==  /project/search/type/{typeCode}/{curPage}
-	
-* request
-``` json
-[{
-	"typeCode":Number,
-	"curPage":Number
-...]
-```
-
-``` json
-[{
-	"proId":Nnmber,
-	"proName":String,
-	"proMoney":Number,
-	"proType":String,
-	"proCycle":Number,
-	"pubTime":UNIX,
-	"enrollment":Number
-},
-...]
-```
-
-#### 分类搜索总页数
-
-* router
-	* ==GET== /project/pagnation/type/{typeCode}
-
-* request
-``` json
-[{
-	"proName":String
-},
-...] 
-```
-* response
-``` json
-[{
-	"totalPages":Number
-},
-...]
-```
-
-#### 排序搜索
-
-* router
-	* ==GET== /project/search/order/{orderCode}/{curPage}
-
-* request
-``` json
-[{
-	"curPage":int
-},
-...]
-```
-
-* response
-``` json
-[{
-	"proId":Nnmber,
-	"proName":String,
-	"proMoney":Number,
-	"proType":String,
-	"proCycle":Number,
-	"pubTime":UNIX,
-	"enrollment":Number
-},
-...]
-```
-
-#### 排序搜索总页数
-
-* router
-	* ==GET== /project/pagnation/order/{orderCode}
-
-* request
-``` json
-[{
-	"orderCode":Number
-},
-...] 
-```
-* response
-``` json
-[{
-	"totalPages":Number
-},
-...]
-```
 
 #### 猜你喜欢
 
 * router
-	* ==GET== /project/index/like/{userId}/{curPage}
+	* ==GET== /project/index/like/{userId}
 
 * request
 ``` json
-	"userId":Number,
-	"curPage":Number
+	"userId":Number
 ```
 
 * response
@@ -749,11 +643,11 @@ grammar_cjkRuby: true
 #### 最新项目
 
 * router
-	* ==GET== /project/index/new/{curPage}
+	* ==GET== /project/index/new
 
 * request
 ``` json
-	"curPage":Number
+
 ```
 
 * response
@@ -769,28 +663,6 @@ grammar_cjkRuby: true
 },
 ...]
 ```
-
-#### 项目申请人数
-
-* router  
-	* ==GET==  /project/company/apply/{proId}
-
-* request
-``` json
-[{
-	"proId":Number
-},
-...]
-```
-
-* response
-``` json
-[{
-	"applyNum":Number
-},
-...]
-```
-
 
 ###  2.2项目详情显示
 
@@ -873,12 +745,18 @@ grammar_cjkRuby: true
 
 #### 2.4.1 项目确定发布
 * router 
-	* ==GET==   /project/company/release/{proCompanyId}
+	* ==POST==   /project/company/release/{proCompanyId}
 
 * request 
 ``` json
 [{
-	"proCompanyId":Number
+	"proCompanyId":Number,
+	"proName":String,
+	"proDescription":String,
+	"proType":String,
+	"proCycle":Number,
+	"proMoney":Number,
+	"proRequest":Number
 },
 ...]
 ```
@@ -895,12 +773,12 @@ grammar_cjkRuby: true
 ### 2.5 查看项目申请
 
 * router
-	* ==GET==  /project/company/apply/show/{proId}
+	* ==GET==  /project/company/apply/show/{projectId}
 
 * request
 ``` json
 [{
-	"proId":Number
+	"projectId":Number
 },
 ...]
 ```
@@ -942,7 +820,7 @@ grammar_cjkRuby: true
 * response
 ``` json
 [{
-	**Status(http状态码)
+	"isSuccessful":Boolean
 },
 ...]
 ```
@@ -953,13 +831,12 @@ grammar_cjkRuby: true
 #### 项目阶段信息显示
 
 * router
-	* ==GET== /project/stage/{proId}/{stageNum}
+	* ==GET== /project/stage/{proId}
 
 * request
 ``` json
 [{
-	"proId":Number,
-	"stageNum":Number
+	"proId":Number
 },	
 ...]
 ```
@@ -968,10 +845,13 @@ grammar_cjkRuby: true
 ``` json
 [{
 	"stageId":Number,
+	"stageNum":Number,
 	"stageStartTime":UNIX,
 	"stageEndTime":UNIX,
 	"stageSettlement":Number,
-	"stageSpeed":Number
+	"stageSpeed":Number,
+	"stageSpeed":Number,
+	"stageTargets":List
 },	
 ...]
 ```
@@ -979,16 +859,17 @@ grammar_cjkRuby: true
 #### 项目阶段添加
 
 * router 
-	* ==POST==  /project/company/stage/add/{proId}
+	* ==POST==  /project/company/stage/add/{proId}/{stageNum}
 
 * request
 ``` json
 [{
-	"proId":Number,
+	"proId":Number
 	"stageNum":Number,
 	"stageStartTime":UNIX,
 	"stageEndTime":UNIX,
-	"stageSettlement":String
+	"stageSettlement":String，
+	"stageTargets":List
 },
 ...]
 ```
@@ -1001,46 +882,20 @@ grammar_cjkRuby: true
 ...]
 ```
 
-
-#### 指标信息显示
-
-* router
-	* ==GET== /project/stage/{proId}/{stageId}/{targetName}
-
-* request
-``` json
-[{
-	"proId":Number,
-	"stageId":Number,
-	"targetName":String
-},	
-...]
-```
-
-* response
-``` json
-[{
-	"targetId":Number,
-	"targetDeadline":UNIX,
-	"stargetDetail":String,
-	"stageRemarks":String
-},	
-...]
-```
-
-#### 增加指标
+#### 项目阶段修改
 
 * router 
-	* ==POST==  /project/company/stage/tagrget/add/{proId}/{stageId}
+	* ==POST==  /project/company/stage/update/{proId}/{stageId}
 
 * request
 ``` json
 [{
-	"proId":Number,
-	"stageId":Number,
-	"targetName":String,
-	"targetDeadline":UNIX,
-	"targetDetails":String
+	"stageId",Number
+	"stageNum":Number,
+	"stageStartTime":UNIX,
+	"stageEndTime":UNIX,
+	"stageSettlement":String，
+	"stageTargets":List
 },
 ...]
 ```
@@ -1048,24 +903,26 @@ grammar_cjkRuby: true
 * reponse
 ``` json
 [{
-	** Status(http状态码)
+	"stageId",Number
+	"stageNum":Number,
+	"stageStartTime":UNIX,
+	"stageEndTime":UNIX,
+	"stageSettlement":String，
+	"stageSpeed":Number,
+	"stageTargets":List
 },
 ...]
 ```
 
-#### 修改指标
+#### 改变指标状态
 
 * router 
-	* ==POST==  /project/company/stage/tagrget/alter/{proId}/{stageId}
+	* ==GET==  /project/company/stage/target/change{targetId}
 
 * request
 ``` json
 [{
-	"proId":Number,
-	"stageId":Number,
-	"targetName":String,
-	"targetDeadline":UNIX,
-	"targetDetails":String
+	"targetId":Number
 },
 ...]
 ```
@@ -1073,10 +930,7 @@ grammar_cjkRuby: true
 * reponse
 ``` json
 [{
-	"targetId":Number,
-	"targetName":String,
-	"targetDeadline":UNIX,
-	"targetDetails":String
+	"isSuccessful":Boolean
 },
 ...]
 ```
@@ -1084,13 +938,11 @@ grammar_cjkRuby: true
 #### 删除指标
 
 * router 
-	* ==GET==  /project/company/stage/tagrget/alter/{proId}/{stageId}/{targetId}
+	* ==GET==  /project/company/stage/target/delete{targetId}
 
 * request
 ``` json
 [{
-	"proId":Number,
-	"stageId":Number,
 	"targetId":Number
 },
 ...]
@@ -1106,16 +958,15 @@ grammar_cjkRuby: true
 
 #### 文件信息显示
 
-**a. 用户上传文件信息显示**
+**a. 文件汇总**
 
 * router
-	* ==GET== /project/file/user/{proId}/{stageId}
+	* ==GET== /project/file/all/{proId}
 
 * request
 ``` json
 [{
-	"proId":Number,
-	"stageId":Number
+	"proId":Number
 },	
 ...]
 ```
@@ -1123,25 +974,40 @@ grammar_cjkRuby: true
 * response
 ``` json
 [{
-	"fileId":Number,
-	"fileName":String,
-	"fileSize":Number,
-	"fileUploader":String,
-	"fileModifyTime":UNIX
+	"requestFiles":List
+	{
+		"requestFileId":Number,
+		"companyId":Number,
+		"proId":Number,
+		"requestFileName":String,
+		"requestFileSize":Number,
+		"requestFileUploader":String,
+		"requestFileModifyTime":UNIX
+	}
+	"workFiles":List
+	{
+		"workFileId":Number,
+		"stageId":Number,
+		"userId":Number,
+		"workFileStageNum":Number,
+		"workFileName":String,
+		"workFfileSize":Number,
+		"workFileUploader":String,
+		"workFileModifyTime":UNIX
+	}
 },	
 ...]
 ```
 
-**b. 所有上传文件信息显示**
+**b. 指标文件信息显示**
 
 * router
-	* ==GET== /project/file/all/{proId}/{stageId}
+	* ==GET== /project/file/target/{targetId}
 
 * request
 ``` json
 [{
-	"proId":Number,
-	"stageId":Number
+	"targetId":Number
 },	
 ...]
 ```
@@ -1149,11 +1015,14 @@ grammar_cjkRuby: true
 * response
 ``` json
 [{
-	"fileId":Number,
-	"fileName":String,
-	"fileSize":Number,
-	"fileUploader":String,
-	"fileModifyTime":UNIX
+	"workFileId":Number,
+	"stageId":Number,
+	"userId":Number,
+	"workFileStageNum":Number,
+	"workFileName":String,
+	"workFfileSize":Number,
+	"workFileUploader":String,
+	"workFileModifyTime":UNIX
 },	
 ...]
 ```
@@ -1161,16 +1030,15 @@ grammar_cjkRuby: true
 
 #### 文件下载
 
+**a. 需求文件下载**
+
 * router
-	* ==GET== /project/file/download/{proId}/{stageId}/{fileName}/{downloadPath}
+	* ==GET== /project/requestFile/download/{fileName}
 
 * request
 ``` json
 [{
-	"proId":Number,
-	"stageId":Number,
-	"fileName":String,
-	"downloadPath"
+	"fileName":String
 },	
 ...]
 ```
@@ -1178,28 +1046,54 @@ grammar_cjkRuby: true
 * response
 ``` json
 [{
-	"isSuccessful":Boolean
+	ResponseEntity
+	{
+		文件二进流，请求头，状态码
+	}
+},	
+...]
+```
+
+**b. 开发文件下载**
+
+* router
+	* ==GET== /project/workFile/download/{fileName}
+
+* request
+``` json
+[{
+	"fileName":String
+},	
+...]
+```
+
+* response
+``` json
+[{
+	ResponseEntity
+	{
+		文件二进流，请求头，状态码
+	}
 },	
 ...]
 ```
 
 #### 文件上传
 
-**a. 个人用户上传**
+**a. 个人用户上传开发文件**
 
 * router
-	* ==POST== /project/file/user/upload/{proId}/{stageId}
+	* ==POST== /project/user/workFile/upload/{targetId}
 
 * request
 ``` json
 [{
 	** 表单
-	"file":file,
+	"targetId":Number
+	"file":File,
 	"userId":Number,
-	"uploader":String,
-	"proId":Number,
-	"stageId":Number,
-	"fileName":String
+	"workFileUploader":String,
+	"workFileName":String
 },	
 ...]
 ```
@@ -1212,21 +1106,19 @@ grammar_cjkRuby: true
 ...]
 ```
 
-**b. 企业用户下载**
+**b. 企业上传需求文件**
 
 * router
-	* ==POST== /project/file/company/upload/{proId}/{stageId}
+	* ==POST== /project/company/requestFile/upload/{proId}
 
 * request
 ``` json
 [{
 	** 表单
-	"file":file,
+	"file":File,
 	"companyId":Number,
-	"uploader":String,
-	"proId":Number,
-	"stageId":Number,
-	"fileName":String
+	"requestFileUploader":String,
+	"requestFileName":String
 },	
 ...]
 ```
@@ -1238,19 +1130,20 @@ grammar_cjkRuby: true
 },	
 ...]
 ```
+
 
 ### 2.8 项目中心
 
 #### 个人简历状态
  
 * router
-	*  ==GET== /project/user/checkout/{userId}/{stateCode}
+	*  ==GET== /project/user/checkout/{userId}/{selectCode}
 
 * request
 ```json
 [{
 	"userId":Number,
-	"stateCode":Number
+	"selectCode":Number
 },
 ...]
 ```
@@ -1265,7 +1158,8 @@ grammar_cjkRuby: true
 	"proType":String,
 	"companyName":String,
 	"proCycle":Number,
-	"pubTime":UNIX,
+	"proPubTime":UNIX,
+	"proEnrollment":Number,
 	"proDescription":String,
 	"proRequest":String,
 	"proState":Number
@@ -1276,13 +1170,12 @@ grammar_cjkRuby: true
 #### 企业项目中心
  
 * router
-	*  ==GET== /project/user/checkout/{companyId}/{stateCode}
+	*  ==GET== /project/company/checkout/{companyId}
 
 * request
 ```json
 [{
-	"companyId":Number,
-	"stateCode":Number
+	"companyId":Number
 },
 ...]
 ```
@@ -1300,7 +1193,8 @@ grammar_cjkRuby: true
 	"pubTime":UNIX,
 	"proDescription":String,
 	"proRequest":String,
-	"proState":Number
+	"proState":Number,
+	'proApplicants":Number
 },
 ...]
 ```
@@ -1433,28 +1327,6 @@ grammar_cjkRuby: true
 
 ### 3.3企业信息管理
 
-#### 企业logo上传
-* router
-	*  ==POST==  /company/companyInfo/logo/{companyId}/{companyName}/{photoName}
-
-* request
-``` json
-[{
-	"companyId":Number,
-	"companyName":String,
-	photoName:String
-},
-...]
-```
-
-* response
-``` json
-[{
-	"imgUrl":String
-},
-...]
-```
-
 #### 企业信息显示
 
 * router 
@@ -1562,13 +1434,12 @@ grammar_cjkRuby: true
 #### 专利信息搜索
 
 * router
-	* ==GET== /company/patent/search/{keyword}/{curPage}
+	* ==GET== /company/patent/search/{keyword}
 
 * request
 ``` json
 [{
-	"keyword":String,
-	"curPage":Number
+	"keyword":String
 },
 ...]
 ```
@@ -1588,44 +1459,19 @@ grammar_cjkRuby: true
 ...]
 ```
 
-#### 专利信息详情
-
-* router
-	* ==GET== /company/patent/detail/{patentId}
-
-* request
-``` json
-[{
-	"patentId":String
-...]
-```
-
-* response
-``` json
-[{
-	"imgUrl":String,
-	"patentName":String,
-	"patentOwner":String,
-	"patentNum":String,
-	"patentApplyNum":String,
-	"patentAuthTime":String,
-	"patentCertiCode":String,
-	"patentState":Number
-},
-...]
-```
 
 ### 3.6 人才信息管理
 
-#### 人才行业搜索
+#### 人才搜索
 * router
-	* ==GET== /company/resume/search/profession/{majorType}/{curPage}
+	* ==GET== /company/resume/search/{resumeProfession}/{resumeProfessionType}/{resumeProvince}
 
 * request
 ``` json
 [{
-	"majorType":Number,
-	"curPage":Number
+	"resumeProfession":String,
+	"resumeProfession":String,
+	"resumeProvince":String
 },
 ...]
 ```
@@ -1644,40 +1490,10 @@ grammar_cjkRuby: true
 	"resumeMajor":String,
 	"resumePhoneNum":String,
 	"resumeExperience":String,
-	"resumeWorkExperience":String
+	"resumeWorkExperience":String,
+	"resumeCompletedProjects":Number,
+	"resumeSelectMark":Number
 	},
-...]
-```
-
-#### 人才地点搜索
-* router
-	* ==GET== /company/resume/search/province/{province}/{curPage}
-
-* request
-``` json
-[{
-	"province":String,
-	"curPage":Number
-},
-...]
-```
-
-* response
-``` json
-[{
-	"resumeId":Number,
-	"imgUrl":String,
-	"resumeRealName":String,
-	"resumeSex":String,
-	"rusumeBirth":UNIX,
-	"resumeEducation":String,
-	"resumeSchool":String,
-	"resumeMajor":String,
-	"resumeMajor":String,
-	"resumePhoneNum":String,
-	"resumeExperience":String,
-	"resumeWorkExperience":String
-},
 ...]
 ```
 
@@ -1689,8 +1505,8 @@ grammar_cjkRuby: true
 * request
 ``` json
 [{
-	applyId":Number,
-	stateCode:Number
+	"applyId":Number,
+	"stateCode":Number
 },
 ...]
 ```
@@ -1703,8 +1519,125 @@ grammar_cjkRuby: true
 ...]
 ```
 
+## 图片管理
 
+### 4.1 图片上传
 
+#### 4.1.1 头像上传
+
+* router
+	* ==POST== /photo/upload/headProtrait/{userName}/{photoName}
+
+* request
+``` json
+[{
+	"userName":String,
+	"photoName":String,
+	"file":File
+},
+...]
+```
+
+* response
+``` json
+[{
+	"url":String
+},
+...]
+```
+	
+#### 4.1.2 简历照片上传
+
+* router
+	* ==POST== /photo/upload/resume/{userName}/{photoName}
+
+* request
+``` json
+[{
+	"userName":String,
+	"photoName":String,
+	"file":File
+},
+...]
+```
+
+* response
+``` json
+[{
+	"url":String
+},
+...]
+```
+
+#### 4.1.3 专利图片上传
+
+* router
+	* ==POST== /photo/upload/patent/{userName}/{photoName}
+
+* request
+``` json
+[{
+	"userName":String,
+	"photoName":String,
+	"file":File
+},
+...]
+```
+
+* response
+``` json
+[{
+	"url":String
+},
+...]
+```
+
+#### 4.1.4 公司logo上传
+
+* router
+	* ==POST== /photo/upload/companyLogo/{companyName}/{photoName}
+
+* request
+``` json
+[{
+	"userName":String,
+	"photoName":String,
+	"file":File
+},
+...]
+```
+
+* response
+``` json
+[{
+	"url":String
+},
+...]
+```
+
+### 4.2 图片下载
+
+* router
+	* ==GET== /photo/download/{photoName}
+
+* request
+``` json
+[{
+	"photoName":String
+},	
+...]
+```
+
+* response
+``` json
+[{
+	ResponseEntity
+	{
+		文件二进流，请求头，状态码
+	}
+},	
+...]
+```
 
 
 
